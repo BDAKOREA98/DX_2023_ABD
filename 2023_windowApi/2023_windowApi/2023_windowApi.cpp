@@ -6,6 +6,16 @@
 
 #define MAX_LOADSTRING 100
 
+// windowAPI
+// window창에 대한 Aplication Interface
+// Interface :  접근할 수 있는 무언가 ex) car = key. user == nickname, atk etc...
+// 무언가 -> 함수
+// 거시적 접근이 필요함... 깊게 팔려면 운영체제를 공부해야함
+// 
+
+// hwmd : 윈도우 핸들 : 윈도우를 수정하거나, 기타 등등에 필요한 것
+// hdc(deviceContexhandle) : 모든 출력을 담당 하는것
+
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
@@ -119,12 +129,39 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_COMMAND  - 애플리케이션 메뉴를 처리합니다.
 //  WM_PAINT    - 주 창을 그립니다.
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
+// 
+// 
 //
 //
+
+float mousePointX = 0.0f;
+float mousePointY = 0.0f;
+HPEN bluePen;
+HPEN redPen;
+
+HBRUSH blueBrush;
+HBRUSH redBrush;
+
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+
+    case WM_CREATE:
+    {
+        bluePen = CreatePen(PS_SOLID, 3, RGB(0, 0, 255));
+        redPen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
+
+        blueBrush = CreateSolidBrush(RGB(0, 0, 255));
+        redBrush = CreateSolidBrush(RGB(255, 0, 0));
+
+
+        break;
+    }
+
+
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -142,15 +179,43 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+        
+    case WM_MOUSEMOVE:
+        {
+            mousePointX = static_cast<float> (LOWORD(lParam));
+            mousePointY = static_cast<float> (HIWORD(lParam));
+            InvalidateRect(hWnd, nullptr, true);
+        }
+
+
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+            
+
+            SelectObject(hdc, bluePen);
+            SelectObject(hdc, redBrush);
+            Rectangle(hdc, 100, 100, 300, 300);
+            SelectObject(hdc, redPen);
+            SelectObject(hdc, blueBrush);
+            Ellipse(hdc, 100, 100, 300, 300);
+
+            // 선그리기
+            MoveToEx(hdc, 0, 0, nullptr); // 시작점
+            LineTo(hdc, mousePointX, mousePointY); // 끝점
+        
+
             EndPaint(hWnd, &ps);
+            
         }
         break;
     case WM_DESTROY:
+        DeleteObject(bluePen);
+        DeleteObject(redPen);
+        DeleteObject(blueBrush);
+        DeleteObject(redBrush);
         PostQuitMessage(0);
         break;
     default:
