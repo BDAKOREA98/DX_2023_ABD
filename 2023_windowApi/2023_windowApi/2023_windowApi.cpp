@@ -134,14 +134,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
-float mousePointX = 0.0f;
-float mousePointY = 0.0f;
-HPEN bluePen;
-HPEN redPen;
+Vector2 mousePos;
 
-HBRUSH blueBrush;
-HBRUSH redBrush;
-
+shared_ptr<Program> program;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -150,17 +145,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     case WM_CREATE:
     {
-        bluePen = CreatePen(PS_SOLID, 3, RGB(0, 0, 255));
-        redPen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
-
-        blueBrush = CreateSolidBrush(RGB(0, 0, 255));
-        redBrush = CreateSolidBrush(RGB(255, 0, 0));
-
-
+       
+        program = make_shared<Program>();
+        SetTimer(hWnd, 1, 1, nullptr); // 0.01초마다 한번씨 WM_TMER함수가 호출된다.
         break;
     }
 
-
+    case WM_TIMER:
+    {
+        program->Update();
+        InvalidateRect(hWnd, nullptr, true);
+        break;
+    }
 
     case WM_COMMAND:
         {
@@ -182,9 +178,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         
     case WM_MOUSEMOVE:
         {
-            mousePointX = static_cast<float> (LOWORD(lParam));
-            mousePointY = static_cast<float> (HIWORD(lParam));
-            InvalidateRect(hWnd, nullptr, true);
+            mousePos.x = static_cast<float> (LOWORD(lParam));
+            mousePos.y = static_cast<float> (HIWORD(lParam));
+            
         }
 
 
@@ -194,28 +190,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
             
-
-            SelectObject(hdc, bluePen);
-            SelectObject(hdc, redBrush);
-            Rectangle(hdc, 100, 100, 300, 300);
-            SelectObject(hdc, redPen);
-            SelectObject(hdc, blueBrush);
-            Ellipse(hdc, 100, 100, 300, 300);
-
-            // 선그리기
-            MoveToEx(hdc, 0, 0, nullptr); // 시작점
-            LineTo(hdc, mousePointX, mousePointY); // 끝점
-        
+            program->Render(hdc);
 
             EndPaint(hWnd, &ps);
             
         }
         break;
     case WM_DESTROY:
-        DeleteObject(bluePen);
-        DeleteObject(redPen);
-        DeleteObject(blueBrush);
-        DeleteObject(redBrush);
+       
         PostQuitMessage(0);
         break;
     default:

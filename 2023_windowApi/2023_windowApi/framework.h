@@ -13,3 +13,27 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <math.h>
+#include <memory>
+#include <vector>
+#include <unordered_map>
+#include <string>
+#include <algorithm>
+
+
+
+
+using namespace std;
+#include <Type.h>
+// math
+#include "Math/Vector2.h"
+#include "Math/CircleCollider.h"
+//Scene 폴더
+#include "Scene/Scene.h"
+// program 폴더
+#include"Program/Program.h"
+
+
+extern Vector2 mousePos;
+
+
