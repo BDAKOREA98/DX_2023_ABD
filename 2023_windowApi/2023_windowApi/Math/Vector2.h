@@ -43,7 +43,7 @@ public:
         return result;
     }
 
-    Vector2 operator*(const int& value) const
+    Vector2 operator*(const float& value) const
     {
         Vector2 result;
         return result = Vector2(this->x * value, this->y * value);

@@ -154,6 +154,7 @@
     <ClInclude Include="2023_windowApi.h" />
     <ClInclude Include="Math\CircleCollider.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Math\RectCollider.h" />
     <ClInclude Include="Scene\PaintScene.h" />
     <ClInclude Include="Program\Program.h" />
     <ClInclude Include="Resource.h" />
@@ -175,6 +176,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">framework.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Math\RectCollider.cpp" />
     <ClCompile Include="Scene\PaintScene.cpp" />
     <ClCompile Include="Program\Program.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />

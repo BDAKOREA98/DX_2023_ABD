@@ -15,8 +15,9 @@ public:
 
 	void SetRadius(float radius) { _radius = radius; }
 	float GetRadius() { return _radius; }
+
 private:
 	float _radius = 0.0f;
-	Vector2 _center = {0.0f, 0.0f};
+	Vector2 _center = { 0.0f,0.0f };
 };
 
