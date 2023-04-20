@@ -5,7 +5,7 @@ public:
 	RectCollider();
 	~RectCollider();
 
-	RectCollider(float length, Vector2 center);
+	RectCollider(float length, float width, Vector2 center);
 
 	void Update();
 	void Render(HDC hdc);
@@ -16,10 +16,13 @@ public:
 	void SetLength(float length) { _length = length; }
 	float GetLength() { return _length; }
 
+	void SetWidth(float width) { _width = width; }
+	float GetWidth() { return _width; }
+
 private:
 	
 	float _length = 0.0f;
-
+	float _width = 0.0f;
 	Vector2 _center = { 0.0f, 0.0f };
 
 };

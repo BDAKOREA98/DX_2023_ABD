@@ -4,7 +4,7 @@
 PaintScene::PaintScene()
 {
 	_circlecollider = make_shared<CircleCollider>(30, Vector2(400, 400));
-	_rectcollider = make_shared<RectCollider>(50, Vector2(100, 100));
+	_rectcollider = make_shared<RectCollider>(50, 30, Vector2(100, 100));
 }
 
 PaintScene::~PaintScene()
