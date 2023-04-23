@@ -3,9 +3,9 @@
 
 PaintScene::PaintScene()
 {
-	_mousecircle = make_shared<CircleCollider>(25, Vector2(400, 400));
+	_mousecircle = make_shared<CircleCollider>(100, Vector2(400, 400));
 	_circle = make_shared<CircleCollider>(80, Vector2(400, 400));
-	_mouserect = make_shared<RectCollider>(Vector2(100, 50), Vector2(100, 100));
+	_mouserect = make_shared<RectCollider>(Vector2(100, 100), Vector2(100, 100));
 	_rect = make_shared<RectCollider>(Vector2(70, 80), Vector2(600, 300));
 
 }
@@ -42,51 +42,53 @@ void PaintScene::Update()
 	
 #pragma endregion
 
-#pragma region 같은도형충돌
-	
+#pragma region 충돌시스템
+	// 같은도형
 	if (_mousecircle->IsCollision(_circle))
 	{
+		_mousecircle->SetBlue();
+		_circle->SetBlue();
+	}
+
+	else if (_mouserect->IsCollision(_rect))
+	{
+		_mouserect->SetBlue();
+			_rect->SetBlue();
+	}
+	//다른도형
+	 if (_mousecircle->IsCollision(_rect))
+	{
 		_mousecircle->SetRed();
+		_rect->SetRed();
+	}
+	else if (_mouserect->IsCollision(_circle))
+	{
+		_mouserect->SetRed();
 		_circle->SetRed();
 	}
 	else
 	{
 		_mousecircle->SetGreen();
 		_circle->SetGreen();
-	}
-
-	if (_mouserect->IsCollision(_rect))
-	{
-		_mouserect->SetRed();
-			_rect->SetRed();
-	}
-	else
-	{
 		_mouserect->SetGreen();
 		_rect->SetGreen();
 	}
+	
 #pragma endregion
 
-	if (_mouserect->IsCollision(_circle))
-	{
-		_mouserect->SetRed();
-		_circle->SetRed();
-	}
-	else
-	{
-		_mouserect->SetGreen();
-		_circle->SetGreen();
-	}
-
-
+	
+	
+	
+	
 }
 
 
 
 void PaintScene::Render(HDC hdc)
 {
-	_mouserect->Render(hdc);
 	_mousecircle->Render(hdc);
+	_mouserect->Render(hdc);
+
 	_circle->Render(hdc);
 	
 	_rect->Render(hdc);

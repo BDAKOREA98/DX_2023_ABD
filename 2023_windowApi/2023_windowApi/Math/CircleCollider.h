@@ -1,5 +1,5 @@
 #pragma once
-class CircleCollider
+class CircleCollider : public enable_shared_from_this<CircleCollider>
 {
 public:
 	
@@ -18,7 +18,7 @@ public:
 
 	bool IsCollision(Vector2 pos);
 	bool IsCollision(shared_ptr<CircleCollider> other);
-	//bool IsCollision(shared_ptr<class RectCollider> other);
+	bool IsCollision(shared_ptr<class RectCollider> other);
 
 	void SetRed() { _curPenIdex = 1; }
 	void SetGreen() { _curPenIdex = 0; }

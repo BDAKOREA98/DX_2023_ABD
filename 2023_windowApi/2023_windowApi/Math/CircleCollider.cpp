@@ -51,10 +51,10 @@ bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other)
 
 
 }
-//bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
-//{
-//	
-//}
+bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
+{
+	return other->IsCollision(shared_from_this());
+}
 
 
 void CircleCollider::CreatePens()
