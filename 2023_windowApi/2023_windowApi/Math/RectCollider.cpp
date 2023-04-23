@@ -1,22 +1,27 @@
 #include "framework.h"
 #include "RectCollider.h"
 
+
+
+
+
 RectCollider::RectCollider()
+	: Collider(Vector2(0, 0))
 {
-	CreatePens();
+	_type = Collider::Type::RECT;
 }
 
-RectCollider::RectCollider(Vector2 size, Vector2 center)
-	: _center(center), _size(size)
+RectCollider::RectCollider(Vector2 center, Vector2 size)
+	: Collider(center)
+	, _size(size)
 {
-	CreatePens();
+	_type = Collider::Type::RECT;
 }
 
 
 RectCollider::~RectCollider()
 {
-	for (auto pen : _pens)
-		DeleteObject(pen);
+	
 }
 
 void RectCollider::Update()
@@ -36,7 +41,9 @@ void RectCollider::Render(HDC hdc)
 
 }
 
-bool RectCollider::IsCollision(Vector2 pos)
+
+
+bool RectCollider::IsCollision(const Vector2& pos)
 {
 	if (Left() < pos.x && Right() > pos.x)
 	{
@@ -45,9 +52,6 @@ bool RectCollider::IsCollision(Vector2 pos)
 			return true;
 		}
 	}
-
-	
-	
 
 	return false;
 }
@@ -99,13 +103,5 @@ bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
 	}
 
 	return false;
-}
-
-void RectCollider::CreatePens()
-{
-	_curPenIdex = 0;
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, GREEN)); // 0
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, RED)); //1
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, BLUE));// 2
 }
 

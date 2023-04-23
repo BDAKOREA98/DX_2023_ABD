@@ -1,19 +1,16 @@
 #include "framework.h"
 #include "CircleCollider.h"
 
-CircleCollider::CircleCollider()
-{
-	 CreatePens();
-}
+
+
+
 CircleCollider::CircleCollider(float radius, Vector2 center)
-	: _radius(radius), _center(center)
+	: _radius(radius), Collider(center)
 {
-	CreatePens();
+	_type = Collider::Type::CIRCLE;
 }
 CircleCollider::~CircleCollider()
 {
-	for (auto pen : _pens)
-		DeleteObject(pen);
 }
 
 
@@ -36,7 +33,7 @@ void CircleCollider::Render(HDC hdc)
 
 }
 
-bool CircleCollider::IsCollision(Vector2 pos)
+bool CircleCollider::IsCollision(const Vector2& pos)
 {
 	float distance = _center.Distance(pos);
 
@@ -45,7 +42,7 @@ bool CircleCollider::IsCollision(Vector2 pos)
 
 bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other)
 {
-	float distance = _center.Distance(other->GetCenter());
+	float distance = _center.Distance(other->_center);
 
 	return distance < _radius + other->GetRadius();
 
@@ -56,11 +53,3 @@ bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
 	return other->IsCollision(shared_from_this());
 }
 
-
-void CircleCollider::CreatePens()
-{
-	_curPenIdex = 0;
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, GREEN)); // 0
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, RED)); //1
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, BLUE));// 2
-}

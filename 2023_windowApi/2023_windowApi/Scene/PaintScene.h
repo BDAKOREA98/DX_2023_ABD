@@ -13,9 +13,9 @@ public:
 
 private:
 
-	shared_ptr<CircleCollider> _mousecircle;
-	shared_ptr<CircleCollider> _circle;
-	shared_ptr<RectCollider> _mouserect;
-	shared_ptr<RectCollider> _rect;
+	shared_ptr<Collider> _mousecircle;
+	shared_ptr<Collider>_circle;
+	shared_ptr<Collider> _mouserect;
+	shared_ptr<Collider> _rect;
 	
 };

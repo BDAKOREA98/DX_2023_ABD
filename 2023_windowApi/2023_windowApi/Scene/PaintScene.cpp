@@ -6,7 +6,7 @@ PaintScene::PaintScene()
 	_mousecircle = make_shared<CircleCollider>(100, Vector2(400, 400));
 	_circle = make_shared<CircleCollider>(80, Vector2(400, 400));
 	_mouserect = make_shared<RectCollider>(Vector2(100, 100), Vector2(100, 100));
-	_rect = make_shared<RectCollider>(Vector2(70, 80), Vector2(600, 300));
+	_rect = make_shared<RectCollider>(Vector2(700, 500), Vector2(50, 70));
 
 }
 
@@ -54,6 +54,13 @@ void PaintScene::Update()
 	{
 		_mouserect->SetBlue();
 			_rect->SetBlue();
+	}
+	else
+	{
+		_mousecircle->SetGreen();
+		_circle->SetGreen();
+		_mouserect->SetGreen();
+		_rect->SetGreen();
 	}
 	//다른도형
 	 if (_mousecircle->IsCollision(_rect))

@@ -27,8 +27,10 @@ using namespace std;
 #include <Type.h>
 // math
 #include "Math/Vector2.h"
+#include "Math/Collider.h"
 #include "Math/CircleCollider.h"
 #include "Math/RectCollider.h"
+
 //Scene 폴더
 #include "Scene/Scene.h"
 // program 폴더
