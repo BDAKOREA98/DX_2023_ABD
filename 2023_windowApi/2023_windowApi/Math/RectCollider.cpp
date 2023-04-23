@@ -3,17 +3,20 @@
 
 RectCollider::RectCollider()
 {
+	CreatePens();
 }
 
-RectCollider::RectCollider(float length, float width, Vector2 center)
-	:_length(length),_width(width), _center(center)
+RectCollider::RectCollider(Vector2 size, Vector2 center)
+	: _center(center), _size(size)
 {
-
+	CreatePens();
 }
 
 
 RectCollider::~RectCollider()
 {
+	for (auto pen : _pens)
+		DeleteObject(pen);
 }
 
 void RectCollider::Update()
@@ -22,11 +25,54 @@ void RectCollider::Update()
 
 void RectCollider::Render(HDC hdc)
 {
-	float LEFT = _center.x - _width;
-	float RIGHT = _center.x + _width;
-	float TOP = _center.y - _length;
-	float BOTTOM = _center.y + _length;
+	SelectObject(hdc, _pens[_curPenIdex]);
+
+	float LEFT = _center.x - (_size.x*0.5);
+	float RIGHT = _center.x + (_size.x*0.5f);
+	float TOP = _center.y - (_size.y*0.5f);
+	float BOTTOM = _center.y + (_size.y*0.5f);
 
 	Rectangle(hdc, LEFT, TOP, RIGHT, BOTTOM);
 
 }
+
+bool RectCollider::IsCollision(Vector2 pos)
+{
+	if (Left() < pos.x && Right() > pos.x)
+	{
+		if (Top() < pos.y && Bottom() > pos.y)
+		{
+			return true;
+		}
+	}
+
+	
+	
+
+	return false;
+}
+
+bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
+{
+
+	if (Left() > other->Right() || Right() < other->Left() )
+	{
+		return false;
+	}
+	if (Top() > other->Bottom() || Bottom() < other->Top())
+	{
+		return false;
+	}
+
+	return true;
+	
+}
+
+void RectCollider::CreatePens()
+{
+	_curPenIdex = 0;
+	_pens.emplace_back(CreatePen(PS_SOLID, 3, GREEN)); // 0
+	_pens.emplace_back(CreatePen(PS_SOLID, 3, RED)); //1
+	_pens.emplace_back(CreatePen(PS_SOLID, 3, BLUE));// 2
+}
+

@@ -68,6 +68,12 @@ public:
         return result;
     }
 
+    float Distance(const Vector2& other) const
+    {
+        Vector2 result = *this - other;
+        return result.Length();
+    }
+
     float Dot(const Vector2& other) const
     {
         float result = x * other.x + y * other.y;

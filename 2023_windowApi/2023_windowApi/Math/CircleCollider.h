@@ -16,7 +16,22 @@ public:
 	void SetRadius(float radius) { _radius = radius; }
 	float GetRadius() { return _radius; }
 
+	bool IsCollision(Vector2 pos);
+	bool IsCollision(shared_ptr<CircleCollider> other);
+
+	void SetRed() { _curPenIdex = 1; }
+	void SetGreen() { _curPenIdex = 0; }
+	void SetBlue() { _curPenIdex = 2; }
+
+
+	
 private:
+	void CreatePens();
+
+	int _curPenIdex = 0;
+	vector<HPEN> _pens;
+
+	
 	float _radius = 0.0f;
 	Vector2 _center = { 0.0f,0.0f };
 };
