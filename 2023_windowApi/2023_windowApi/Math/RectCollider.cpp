@@ -67,6 +67,39 @@ bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
 	return true;
 	
 }
+bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
+{
+	float circleBottom = other->GetCenter().y + other->GetRadius();
+	float circleTop = other->GetCenter().y - other->GetRadius();
+	float circleLeft = other->GetCenter().x - other->GetRadius();
+	float circleRight = other->GetCenter().x + other->GetRadius();
+
+	if (other->GetCenter().x < Right() && other->GetCenter().x > Left())
+	{
+		if (circleBottom > Top() && circleTop < Bottom())
+		{
+			return true;
+		}
+	}
+
+	if (other->GetCenter().y < Bottom() && other->GetCenter().y > Top())
+	{
+		if (circleLeft < Right() && circleRight > Left())
+		{
+			return true;
+		}
+	}
+
+	if (other->IsCollision(Vector2(Left(), Top()))
+		|| other->IsCollision(Vector2(Right(), Top()))
+		|| other->IsCollision(Vector2(Left(), Bottom()))
+		|| other->IsCollision(Vector2(Right(), Bottom())))
+	{
+		return true;
+	}
+
+	return false;
+}
 
 void RectCollider::CreatePens()
 {

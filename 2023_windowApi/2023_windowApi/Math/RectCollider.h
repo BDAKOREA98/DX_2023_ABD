@@ -22,6 +22,7 @@ public:
 
 	bool IsCollision(Vector2 pos);
 	bool IsCollision(shared_ptr<RectCollider> other);
+	bool IsCollision(shared_ptr<class CircleCollider> other);
 
 
 	void SetRed() { _curPenIdex = 1; }

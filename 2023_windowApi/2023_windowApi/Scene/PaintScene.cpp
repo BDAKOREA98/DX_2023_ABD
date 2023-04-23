@@ -20,8 +20,9 @@ void PaintScene::Update()
 	Vector2 lerpPos = LERP(_mousecircle->GetCenter(), mousePos, 0.1f);
 	_mousecircle->SetCenter(lerpPos);
 	_mouserect->SetCenter(lerpPos);
+#pragma region 점충돌
 
-	if (_mousecircle->IsCollision(mousePos))
+	/*if (_mousecircle->IsCollision(mousePos))
 	{
 		_mousecircle->SetBlue();
 	}
@@ -29,7 +30,20 @@ void PaintScene::Update()
 	{
 		_mousecircle->SetGreen();
 	}
+	if (_mouserect->IsCollision(mousePos))
+	{
+		_mouserect->SetBlue();
 
+	}
+	else
+	{
+		_mouserect->SetGreen();
+	}*/
+	
+#pragma endregion
+
+#pragma region 같은도형충돌
+	
 	if (_mousecircle->IsCollision(_circle))
 	{
 		_mousecircle->SetRed();
@@ -41,15 +55,6 @@ void PaintScene::Update()
 		_circle->SetGreen();
 	}
 
-	if (_mouserect->IsCollision(mousePos))
-	{
-		_mouserect->SetBlue();
-
-	}
-	else
-	{
-		_mouserect->SetGreen();
-	}
 	if (_mouserect->IsCollision(_rect))
 	{
 		_mouserect->SetRed();
@@ -60,9 +65,23 @@ void PaintScene::Update()
 		_mouserect->SetGreen();
 		_rect->SetGreen();
 	}
+#pragma endregion
+
+	if (_mouserect->IsCollision(_circle))
+	{
+		_mouserect->SetRed();
+		_circle->SetRed();
+	}
+	else
+	{
+		_mouserect->SetGreen();
+		_circle->SetGreen();
+	}
 
 
 }
+
+
 
 void PaintScene::Render(HDC hdc)
 {
