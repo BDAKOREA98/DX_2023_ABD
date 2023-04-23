@@ -1,11 +1,12 @@
 #include "framework.h"
 #include "Scene/PaintScene.h"
+#include "Scene/LineScene.h"
 #include "Program.h"
 
 
 Program::Program()
 {
-	_scene = make_shared<PaintScene>();
+	_scene = make_shared<LineScene>();
 }
 
 Program::~Program()

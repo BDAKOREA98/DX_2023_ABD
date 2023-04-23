@@ -30,7 +30,7 @@ using namespace std;
 #include "Math/Collider.h"
 #include "Math/CircleCollider.h"
 #include "Math/RectCollider.h"
-
+#include "Math/Line.h"
 //Scene 폴더
 #include "Scene/Scene.h"
 // program 폴더

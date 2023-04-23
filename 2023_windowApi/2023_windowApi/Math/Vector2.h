@@ -94,6 +94,20 @@ public:
         return result;
     }
 
+    Vector2 NorMalVector2() const // 단위벡터를 뽑기위한 식
+    {
+        Vector2 result;
+        result.x = x / Length();
+        result.y = y / Length();
+
+        return result;
+    }
+
+    void Normalize() // 단위 벡터를 뽑아내는 식
+    {
+        x /= Length();
+        y /= Length();
+    }
 public:
     float x = 0.0f;
     float y = 0.0f;
