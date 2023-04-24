@@ -2,7 +2,7 @@
 #include "LineScene.h"
 LineScene::LineScene()
 {
-	_floorLine = make_shared<Line>(Vector2(100, 600), Vector2(1300, 400));
+	_floorLine = make_shared<Line>(Vector2(100, 600), Vector2(1300, 500));
 	_mouseLine = make_shared<Line>(Vector2(100, 300), Vector2(1000, 700));
 	_shadowLine = make_shared<Line>(Vector2(100, 500), Vector2(110, 500));
 }

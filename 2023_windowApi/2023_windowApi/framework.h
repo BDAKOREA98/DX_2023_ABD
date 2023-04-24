@@ -19,7 +19,7 @@
 #include <unordered_map>
 #include <string>
 #include <algorithm>
-
+#include <cmath>
 
 
 
@@ -27,10 +27,12 @@ using namespace std;
 #include <Type.h>
 // math
 #include "Math/Vector2.h"
+#include "Math/Vector3.h"
 #include "Math/Collider.h"
 #include "Math/CircleCollider.h"
 #include "Math/RectCollider.h"
 #include "Math/Line.h"
+
 //Scene 폴더
 #include "Scene/Scene.h"
 // program 폴더

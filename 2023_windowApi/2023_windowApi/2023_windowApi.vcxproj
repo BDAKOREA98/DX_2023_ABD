@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="2023_windowApi.h" />
+    <ClInclude Include="Scene\LineCollisionScene.h" />
     <ClInclude Include="Math\Collider.h" />
     <ClInclude Include="Math\Line.h" />
     <ClInclude Include="Scene\LineScene.h" />
@@ -165,9 +166,11 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Type.h" />
+    <ClInclude Include="Math\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2023_windowApi.cpp" />
+    <ClCompile Include="Scene\LineCollisionScene.cpp" />
     <ClCompile Include="Math\Collider.cpp" />
     <ClCompile Include="Math\Line.cpp" />
     <ClCompile Include="Scene\LineScene.cpp" />
@@ -187,6 +190,7 @@
     <ClCompile Include="Program\Program.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
+    <ClCompile Include="Math\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_windowApi.rc" />

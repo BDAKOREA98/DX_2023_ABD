@@ -68,24 +68,33 @@ public:
         return result;
     }
 
-    float Distance(const Vector2& other) const
+   /* float Direction(const Vector2& other) const
+    {
+        Vector2 result;
+        result = 
+
+    }*/
+
+    float Distance(const Vector2& other) const // 두 벡터의 거리
     {
         Vector2 result = *this - other;
         return result.Length();
     }
 
-    float Dot(const Vector2& other) const
+    float Dot(const Vector2& other) const // 두 벡터의 내적
     {
         float result = x * other.x + y * other.y;
         return result;
     }
 
-    float Cross(const Vector2& other) const
+    float Cross(const Vector2& other) const 
     {
         float result = x * other.y - other.x * y;
 
         return result;
     }
+
+    
 
     float Angle() const
     {
