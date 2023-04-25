@@ -1,4 +1,5 @@
 #pragma once
+#include "../Type.h"
 class Line
 {
 public:
@@ -19,6 +20,8 @@ public:
 
 	virtual Vector2 STARTPOSITION() { return _startPos; }
 	virtual Vector2 ENDPOSITION() { return _endPos; }
+
+	HitResult IsCollision(shared_ptr<Line> other);
 
 
 public:

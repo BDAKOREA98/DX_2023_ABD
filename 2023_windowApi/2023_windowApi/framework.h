@@ -24,7 +24,6 @@
 
 
 using namespace std;
-#include <Type.h>
 // math
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
@@ -32,6 +31,8 @@ using namespace std;
 #include "Math/CircleCollider.h"
 #include "Math/RectCollider.h"
 #include "Math/Line.h"
+
+#include "Type.h"
 
 //Scene 폴더
 #include "Scene/Scene.h"
