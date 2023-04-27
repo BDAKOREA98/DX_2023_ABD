@@ -34,6 +34,9 @@ using namespace std;
 
 #include "Type.h"
 
+//Object 폴더
+#include "Object/Bullet.h"
+#include "Object/Cannon.h"
 //Scene 폴더
 #include "Scene/Scene.h"
 // program 폴더

@@ -4,12 +4,13 @@
 
 Line::~Line()
 {
+	for (auto pen : _pens)
+		DeleteObject(pen);
 }
 
 void Line::Update()
 {
-	for (auto pen : _pens)
-		DeleteObject(pen);
+	
 }
 
 void Line::Render(HDC hdc)
