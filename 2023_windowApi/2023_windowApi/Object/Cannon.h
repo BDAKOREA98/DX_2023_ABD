@@ -46,7 +46,7 @@ private:
 	// 
 	bool _spacePress = false;
 	bool _spaceUp = true;
-	float _power;
+	float _power; // 스페이스 누르면 증가하다 떼는 순간 불렛 스피드 수정
 	vector<shared_ptr<Bullet>> _bullets;
 	
 	int _hp = 5;
