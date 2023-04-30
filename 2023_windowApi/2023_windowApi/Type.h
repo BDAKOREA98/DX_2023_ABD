@@ -2,6 +2,8 @@
 #include "framework.h"
 
 #define PI 3.141592
+#define GRAVITY 0.01f
+
 
 #define WIN_WIDTH 1280
 #define WIN_HEIGHT 720
