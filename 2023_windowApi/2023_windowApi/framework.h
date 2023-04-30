@@ -44,5 +44,5 @@ using namespace std;
 
 
 extern Vector2 mousePos;
-
+extern HWND hWnd;
 
