@@ -44,3 +44,16 @@ void Bullet::Render(HDC hdc)
 	}
 	_circle->Render(hdc);
 }
+
+bool Bullet::AttackCannon(shared_ptr<Cannon> cannon)
+{
+
+	if (_circle ->IsCollision(cannon->Getcol()) && cannon->IsDead() ==false)
+	{
+		_isActive = false;
+		return true;
+	}
+
+
+	
+}

@@ -9,11 +9,15 @@ public:
 	virtual void Update() ;
 	virtual void Render(HDC hdc) ;
 
+	
 
 
 private:
 
+
+
 	shared_ptr<Cannon> _cannon;
+	shared_ptr<Cannon> _cannon2;
 
 };
 

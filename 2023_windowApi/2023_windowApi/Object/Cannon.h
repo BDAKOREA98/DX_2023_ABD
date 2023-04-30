@@ -14,6 +14,16 @@ public:
 
 	shared_ptr<Bullet> Setbullet();
 
+
+	void SetPostion(const Vector2& pos) { _pos = pos; }
+	void TackeDamage() { _hp -= 1; }
+	vector<shared_ptr<Bullet>>& GetBullets() { return _bullets; }
+	shared_ptr<Collider > Getcol() { return _body; }
+
+	bool _iscontroll = true;
+
+	bool IsDead() { return _hp <= 0; }
+
 private:
 	shared_ptr<CircleCollider> _body;
 	
@@ -39,7 +49,7 @@ private:
 	float _power;
 	vector<shared_ptr<Bullet>> _bullets;
 	
-
+	int _hp = 5;
 
 };
 

@@ -23,9 +23,20 @@ Cannon::~Cannon()
 void Cannon::Update()
 {
 	
+	if (IsDead())
+	{
+		return;
+	}
 
-	MoveByInput();
-	Fire();
+	if (_iscontroll)
+	{
+		MoveByInput();
+		Fire();
+	}
+
+
+
+
 	_body->Update();
 	_barrel->Update();
 
@@ -42,6 +53,11 @@ void Cannon::Update()
 
 void Cannon::Rneder(HDC hdc)
 {
+	if (IsDead())
+	{
+		return;
+	}
+
 	_barrel->Render(hdc);
 	_body->Render(hdc);
 	for (auto bullet : _bullets)
