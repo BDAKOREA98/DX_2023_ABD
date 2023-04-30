@@ -83,8 +83,18 @@ void Cannon::MoveByInput()
 void Cannon::Fire()
 {
 	
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+	{
+		_spacePress = true;
+		_spaceUp = false;
+	}
+	else
+	{
+		_spaceUp = true;
+	}
 
-	if (GetAsyncKeyState(VK_SPACE) & 0x0001)
+
+	if (_spacePress == true && _spaceUp == true)
 	{
 		Vector2 muzzle = _barrel->_endPos;
 		shared_ptr<Bullet> curBullet = Setbullet();
@@ -97,6 +107,8 @@ void Cannon::Fire()
 		curBullet->SetPos(muzzle);
 		curBullet->SetDirection(_direction);
 		curBullet->SetActive(true);
+		_spacePress = false;
+		_spaceUp = false;
 	}
 
 
