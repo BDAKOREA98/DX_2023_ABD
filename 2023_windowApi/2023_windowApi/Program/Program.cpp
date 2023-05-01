@@ -3,6 +3,7 @@
 #include "Scene/LineScene.h"
 #include "Scene/LineCollisionScene.h"
 #include "Scene/CannonScene.h"
+#include "Scene/MazeScene.h"
 #include "Program.h"
 
 
@@ -16,7 +17,7 @@ Program::Program()
 	_hbit = CreateCompatibleBitmap(hdc, WIN_WIDTH, WIN_HEIGHT);
 	SelectObject(_backBuffer, _hbit);
 	// ¾Àº¯°æ
-	_scene = make_shared<CannonScene>();
+	_scene = make_shared<MazeScene>();
 }
 
 Program::~Program()

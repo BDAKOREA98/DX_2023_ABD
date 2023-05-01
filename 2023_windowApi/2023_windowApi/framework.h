@@ -37,6 +37,9 @@ using namespace std;
 //Object 폴더
 #include "Object/Bullet.h"
 #include "Object/Cannon.h"
+#include "Object/Maze/MazeBlock.h"
+#include "Object/Maze/Maze.h"
+
 //Scene 폴더
 #include "Scene/Scene.h"
 // program 폴더
