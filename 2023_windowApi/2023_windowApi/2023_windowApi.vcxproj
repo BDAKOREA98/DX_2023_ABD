@@ -152,11 +152,29 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="2023_windowApi.h" />
-    <ClInclude Include="Object\Maze\Maze.h" />
-    <ClInclude Include="Object\Maze\MazeBlock.h" />
-    <ClInclude Include="Object\Maze\Player.h" />
+    <ClInclude Include="Object\Arkanoid\Ball.h" />
+    <ClInclude Include="Object\Arkanoid\Bar.h" />
+    <ClInclude Include="Object\Arkanoid\Brick.h" />
+    <ClInclude Include="Object\Maze\Maze.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Object\Maze\MazeBlock.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Object\Maze\Player.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Scene\MazeScene.h" />
-    <ClInclude Include="Scene\ArknoidScene.h" />
+    <ClInclude Include="Scene\ArkanoidScene.h" />
     <ClInclude Include="Object\Bullet.h" />
     <ClInclude Include="Object\Cannon.h" />
     <ClInclude Include="Scene\CannonScene.h" />
@@ -171,6 +189,7 @@
     <ClInclude Include="Program\Program.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Object\Arkanoid\Stage.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Type.h" />
@@ -183,11 +202,29 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2023_windowApi.cpp" />
-    <ClCompile Include="Object\Maze\Maze.cpp" />
-    <ClCompile Include="Object\Maze\MazeBlock.cpp" />
-    <ClCompile Include="Object\Maze\Player.cpp" />
+    <ClCompile Include="Object\Arkanoid\Ball.cpp" />
+    <ClCompile Include="Object\Arkanoid\Bar.cpp" />
+    <ClCompile Include="Object\Arkanoid\Brick.cpp" />
+    <ClCompile Include="Object\Maze\Maze.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Object\Maze\MazeBlock.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Object\Maze\Player.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Scene\MazeScene.cpp" />
-    <ClCompile Include="Scene\ArknoidScene.cpp" />
+    <ClCompile Include="Scene\ArkanoidScene.cpp" />
     <ClCompile Include="Object\Bullet.cpp" />
     <ClCompile Include="Object\Cannon.cpp" />
     <ClCompile Include="Scene\CannonScene.cpp" />
@@ -217,6 +254,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Object\Arkanoid\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_windowApi.rc" />

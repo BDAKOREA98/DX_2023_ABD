@@ -14,7 +14,7 @@ Player::Player(shared_ptr<Maze> maze)
 		_maze.lock()->block(_startPos.x, _startPos.y)->SetType(MazeBlock::BlockType::PLAYER);
 	}
 
-	RightHand();
+	BFS();
 }
 
 Player::~Player()
@@ -124,25 +124,68 @@ void Player::RightHand()
 }
 void Player::BFS()
 {
-	Vector2 poolcount = _maze.lock()->PoolCount();
-
-	int poolCountX = (int)poolcount.x;
-	int poolCountY = (int)poolcount.y;
-
+	Vector2 poolCount = _maze.lock()->PoolCount();
+	int poolCountX = (int)poolCount.x;
+	int poolCountY = (int)poolCount.y;
 	_discovered = vector<vector<bool>>(poolCountY, vector<bool>(poolCountX, false));
-
-	_parent = vector<vector<Vector2>>(poolCountY, vector<Vector2>(poolCountX,Vector2(-1,-1)));
+	_parent = vector<vector<Vector2>>(poolCountY, vector<Vector2>(poolCountX, Vector2(-1, -1)));
 
 	queue<Vector2> q;
-
 	q.push(_startPos);
 	_discovered[_startPos.y][_startPos.x] = true;
 	_parent[_startPos.y][_startPos.x] = _startPos;
+	_visited.push_back(_startPos);
+
+	Vector2 frontPos[4] =
+	{
+		Vector2 {0, -1}, // UP
+		Vector2 {-1, 0}, // LEFT
+		Vector2 {0, 1}, // DOWN
+		Vector2 {1, 0} // RIGHT
+	};
 
 	while (true)
 	{
+		Vector2 here = q.front();
+		q.pop();
 
+		for (int i = 0; i < 4; i++)
+		{
+			Vector2 temp = here + frontPos[i];
+			if (_maze.lock()->block(temp.x, temp.y)->GetType() == MazeBlock::BlockType::DISABLE)
+				continue;
+
+			if (_discovered[temp.y][temp.x] == true)
+				continue;
+
+			q.push(temp);
+			_discovered[temp.y][temp.x] = true;
+			_parent[temp.y][temp.x] = here;
+			_visited.push_back(temp);
+
+			if (temp == _endPos)
+				break;
+		}
+
+		if (_visited.back() == _endPos)
+		{
+			Vector2 check = _endPos;
+
+			while (true)
+			{
+				_path.push_back(check);
+
+				if (check == _parent[check.y][check.x])
+					break;
+
+				check = _parent[check.y][check.x];
+			}
+
+			std::reverse(_path.begin(), _path.end());
+			break;
+		}
 	}
+	return;
 
 }
 bool Player::Cango(Vector2 pos)

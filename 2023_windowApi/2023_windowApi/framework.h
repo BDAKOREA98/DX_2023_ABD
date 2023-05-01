@@ -42,6 +42,12 @@ using namespace std;
 #include "Object/Maze/Maze.h"
 #include "Object/Maze/Player.h"
 
+// Arkanoid 폴더
+#include "Object/Arkanoid/Ball.h"
+#include "Object/Arkanoid/Bar.h"
+#include "Object/Arkanoid/Brick.h"
+#include "Object/Arkanoid/Stage.h"
+
 //Scene 폴더
 #include "Scene/Scene.h"
 // program 폴더
