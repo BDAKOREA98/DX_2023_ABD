@@ -20,6 +20,7 @@
 #include <string>
 #include <algorithm>
 #include <cmath>
+#include <time.h>
 
 
 
@@ -39,6 +40,7 @@ using namespace std;
 #include "Object/Cannon.h"
 #include "Object/Maze/MazeBlock.h"
 #include "Object/Maze/Maze.h"
+#include "Object/Maze/Player.h"
 
 //Scene 폴더
 #include "Scene/Scene.h"

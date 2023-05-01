@@ -154,6 +154,7 @@
     <ClInclude Include="2023_windowApi.h" />
     <ClInclude Include="Object\Maze\Maze.h" />
     <ClInclude Include="Object\Maze\MazeBlock.h" />
+    <ClInclude Include="Object\Maze\Player.h" />
     <ClInclude Include="Scene\MazeScene.h" />
     <ClInclude Include="Scene\ArknoidScene.h" />
     <ClInclude Include="Object\Bullet.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="2023_windowApi.cpp" />
     <ClCompile Include="Object\Maze\Maze.cpp" />
     <ClCompile Include="Object\Maze\MazeBlock.cpp" />
+    <ClCompile Include="Object\Maze\Player.cpp" />
     <ClCompile Include="Scene\MazeScene.cpp" />
     <ClCompile Include="Scene\ArknoidScene.cpp" />
     <ClCompile Include="Object\Bullet.cpp" />

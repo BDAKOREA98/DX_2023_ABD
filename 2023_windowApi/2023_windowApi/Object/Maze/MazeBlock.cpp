@@ -6,9 +6,13 @@ MazeBlock::MazeBlock()
 	_rect = make_shared<RectCollider>(Vector2(), Vector2(14, 14));
 	HBRUSH able = CreateSolidBrush(GREEN);
 	HBRUSH disable = CreateSolidBrush(RED);
+	HBRUSH player = CreateSolidBrush(BLUE);
+	HBRUSH end = CreateSolidBrush(PURPLE);
 
 	_brushes.push_back(able);
 	_brushes.push_back(disable);
+	_brushes.push_back(player);
+	_brushes.push_back(end);
 }
 
 MazeBlock::~MazeBlock()

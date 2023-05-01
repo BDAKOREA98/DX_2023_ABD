@@ -10,6 +10,7 @@
 HDC Program::_backBuffer = nullptr; // 정적변수는 초기화 필 수 
 Program::Program()
 {
+	srand(static_cast<unsigned int> (time(nullptr)));
 
 	// hWnd : 윈도우 핸들 윈도우를 수정하거나 기타 등등에 필요한 것
 	HDC hdc = GetDC(hWnd);
