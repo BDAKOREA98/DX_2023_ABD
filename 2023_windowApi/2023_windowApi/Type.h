@@ -23,3 +23,11 @@ struct HitResult
 	class Vector2 contactPoint;
 	bool isCollision;
 };
+enum Dir
+{
+	DIR_UP,
+	DIR_LEFT,
+	DIR_DOWN,
+	DIR_RIGHT,
+	DIR_COUNT
+};

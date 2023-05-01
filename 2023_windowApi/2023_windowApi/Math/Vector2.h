@@ -66,6 +66,9 @@ public:
         return *this;
     }
 
+    bool operator==(const Vector2& other) const;
+    bool operator!=(const Vector2& other) const;
+
     // 길이
     // 스칼라 : 힘 또는 길이 /  벡터 : 길이, 방향
     float Length() const // 뒤에 있는 const는 함수 내부에서 멤버변수를 건드리지 마라.
