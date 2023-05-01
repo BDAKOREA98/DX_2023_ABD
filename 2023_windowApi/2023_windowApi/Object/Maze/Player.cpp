@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "Player.h"
 #include <stack>
+#include <queue>
 
 Player::Player(shared_ptr<Maze> maze)
 	: _maze(maze)
@@ -120,6 +121,29 @@ void Player::RightHand()
 	std::reverse(_path.begin(), _path.end());
 
 	return;
+}
+void Player::BFS()
+{
+	Vector2 poolcount = _maze.lock()->PoolCount();
+
+	int poolCountX = (int)poolcount.x;
+	int poolCountY = (int)poolcount.y;
+
+	_discovered = vector<vector<bool>>(poolCountY, vector<bool>(poolCountX, false));
+
+	_parent = vector<vector<Vector2>>(poolCountY, vector<Vector2>(poolCountX,Vector2(-1,-1)));
+
+	queue<Vector2> q;
+
+	q.push(_startPos);
+	_discovered[_startPos.y][_startPos.x] = true;
+	_parent[_startPos.y][_startPos.x] = _startPos;
+
+	while (true)
+	{
+
+	}
+
 }
 bool Player::Cango(Vector2 pos)
 {
