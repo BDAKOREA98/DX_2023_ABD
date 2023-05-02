@@ -14,7 +14,7 @@ Player::Player(shared_ptr<Maze> maze)
 		_maze.lock()->block(_startPos.x, _startPos.y)->SetType(MazeBlock::BlockType::PLAYER);
 	}
 
-	BFS();
+	DFS();
 }
 
 Player::~Player()
@@ -23,6 +23,7 @@ Player::~Player()
 
 void Player::Update()
 {
+	
 	_time += 0.4f;
 	if (_time > 1.0f)
 	{
@@ -34,18 +35,17 @@ void Player::Update()
 	{
 		return;
 	}
-
+	// 발자취
 	Vector2 temp = _path[_pathIndex];
 	_maze.lock()->block(temp.x, temp.y)->SetType(MazeBlock::BlockType::PLAYER);
 
-
+	// 현위치
 	if (_pathIndex > 1)
 	{
 		Vector2 temp2 = _path[_pathIndex - 1];
 		_maze.lock()->block(temp2.x, temp2.y)->SetType(MazeBlock::BlockType::POSITION);
 
 	}
-	
 	
 }
 
@@ -139,8 +139,6 @@ void Player::BFS()
 
 	Vector2 frontPos[8] =
 	{
-		
-		
 		Vector2 {1,1}, // DOWN RIGHT
 		Vector2 {0, 1}, // DOWN
 		Vector2 {1, 0}, // RIGHT
@@ -149,14 +147,12 @@ void Player::BFS()
 		Vector2 {-1, 0}, // LEFT
 		Vector2 {-1,1}, // DOWN LEFT
 		Vector2 {-1,-1} //UP LEFT
-
-		
-	
-		
 	};
 
 	while (true)
 	{
+		
+
 		if (q.empty())
 		{
 			break;
@@ -199,10 +195,83 @@ void Player::BFS()
 		temp = _parent[temp.y][temp.x];
 		_path.push_back(temp);
 
+
 		if (temp == _parent[temp.y][temp.x])
 			break;
 	}
 	std::reverse(_path.begin(), _path.end());
+}
+
+
+void Player::DFS()
+{
+
+	Vector2 poolCount = _maze.lock()->PoolCount();
+	int poolCountX = (int)poolCount.x;
+	int poolCountY = (int)poolCount.y;
+
+	_visited = vector<vector<bool>>(poolCountY, vector<bool>(poolCountX, false));
+
+	stack<Vector2> s;
+	s.push(_startPos);
+	_visited[_startPos.y][_startPos.x] = true;
+
+	Vector2 frontPos[8] =
+	{
+		Vector2 {1,1}, // DOWN RIGHT
+		Vector2 {0, 1}, // DOWN
+		Vector2 {1, 0}, // RIGHT
+		Vector2 {0, -1}, // UP
+		Vector2 {1,-1}, ///  UP RIGHT
+		Vector2 {-1, 0}, // LEFT
+		Vector2 {-1,1}, // DOWN LEFT
+		Vector2 {-1,-1} //UP LEFT
+	};
+
+	while (true)
+	{
+		if (s.empty())
+		{
+			break;
+		}
+		
+
+		
+		Vector2 here = s.top();
+		s.pop();
+
+		if (here == _endPos)
+			break;
+
+		for (int i = 0; i < 8; i++)
+		{
+			Vector2 there = here + frontPos[i];
+			
+			if (Cango(there) == false)
+			{
+				continue;
+			}
+
+			if (_visited[there.y][there.x] == true)
+			{
+				continue;
+			}
+			_path.push_back(here);
+
+			s.push(there);
+			_visited[there.y][there.x] = true;
+		
+		
+			
+		}
+		
+		
+		
+
+		
+	}
+
+
 }
 bool Player::Cango(Vector2 pos)
 {
