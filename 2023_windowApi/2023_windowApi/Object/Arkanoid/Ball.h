@@ -8,6 +8,7 @@ public:
 	void Update();
 	void Render(HDC hdc);
 private:
+	shared_ptr<CircleCollider> _ball;
 
 };
 

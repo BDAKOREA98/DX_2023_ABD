@@ -17,6 +17,8 @@
 #define WHITE	 RGB(255,255,255)
 #define PURPLE	 RGB(75,0,100)
 
+
+
 struct HitResult
 {
 	shared_ptr<class Collider> col;

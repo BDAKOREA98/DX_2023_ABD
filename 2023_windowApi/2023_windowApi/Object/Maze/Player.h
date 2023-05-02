@@ -11,7 +11,7 @@ public:
 	void RightHand();
 	void BFS();
 	void DFS();
-
+	void DFS(Vector2 here);
 	bool Cango(Vector2 pos);
 
 private:
@@ -25,12 +25,12 @@ private:
 
 	int _pathIndex = 0;
 	vector<Vector2> _path;
+	vector<Vector2> _visited;
 
 
 	weak_ptr<Maze> _maze;
 
 	vector<vector<bool>> _discovered;
-	vector<vector<bool>> _visited;
 	vector<vector<Vector2>> _parent;
 
 };

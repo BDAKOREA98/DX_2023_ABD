@@ -22,7 +22,7 @@ void CircleCollider::Update()
 
 void CircleCollider::Render(HDC hdc)
 {
-	SelectObject(hdc, _pens[_curPenIdex]);
+	//SelectObject(hdc, _pens[_curPenIdex]);
 
 
 	float LEFT = _center.x + _radius;
