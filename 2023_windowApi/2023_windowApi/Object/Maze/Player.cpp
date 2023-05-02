@@ -46,6 +46,7 @@ void Player::Update()
 
 	}
 	
+	
 }
 
 void Player::RightHand()
@@ -134,59 +135,74 @@ void Player::BFS()
 	q.push(_startPos);
 	_discovered[_startPos.y][_startPos.x] = true;
 	_parent[_startPos.y][_startPos.x] = _startPos;
-	_visited.push_back(_startPos);
+	//_visited.push_back(_startPos);
 
-	Vector2 frontPos[4] =
+	Vector2 frontPos[8] =
 	{
-		Vector2 {0, -1}, // UP
-		Vector2 {-1, 0}, // LEFT
+		
+		
+		Vector2 {1,1}, // DOWN RIGHT
 		Vector2 {0, 1}, // DOWN
-		Vector2 {1, 0} // RIGHT
+		Vector2 {1, 0}, // RIGHT
+		Vector2 {0, -1}, // UP
+		Vector2 {1,-1}, ///  UP RIGHT
+		Vector2 {-1, 0}, // LEFT
+		Vector2 {-1,1}, // DOWN LEFT
+		Vector2 {-1,-1} //UP LEFT
+
+		
+	
+		
 	};
 
 	while (true)
 	{
+		if (q.empty())
+		{
+			break;
+		}
 		Vector2 here = q.front();
 		q.pop();
 
-		for (int i = 0; i < 4; i++)
+		if (here == _endPos)
+			break;
+		for (int i = 0; i < 8; i++)
 		{
-			Vector2 temp = here + frontPos[i];
-			if (_maze.lock()->block(temp.x, temp.y)->GetType() == MazeBlock::BlockType::DISABLE)
-				continue;
+			Vector2 there = here + frontPos[i];
 
-			if (_discovered[temp.y][temp.x] == true)
-				continue;
-
-			q.push(temp);
-			_discovered[temp.y][temp.x] = true;
-			_parent[temp.y][temp.x] = here;
-			_visited.push_back(temp);
-
-			if (temp == _endPos)
-				break;
-		}
-
-		if (_visited.back() == _endPos)
-		{
-			Vector2 check = _endPos;
-
-			while (true)
+			if (Cango(there) == false)
 			{
-				_path.push_back(check);
-
-				if (check == _parent[check.y][check.x])
-					break;
-
-				check = _parent[check.y][check.x];
+				continue;
 			}
 
-			std::reverse(_path.begin(), _path.end());
-			break;
-		}
-	}
-	return;
+			if (_discovered[there.y][there.x] == true)
+			{
+				continue;
+			}
+			q.push(there);
+			_discovered[there.y][there.x] = true;
+			_parent[there.y][there.x] = here;
 
+			
+			_maze.lock()->block(there.x, there.y)->SetType(MazeBlock::BlockType::PLAYER);
+
+		}
+
+	}
+
+	Vector2 temp = _endPos;
+	_path.push_back(temp);
+	while (true)
+	{
+		
+
+		temp = _parent[temp.y][temp.x];
+		_path.push_back(temp);
+
+		if (temp == _parent[temp.y][temp.x])
+			break;
+	}
+	std::reverse(_path.begin(), _path.end());
 }
 bool Player::Cango(Vector2 pos)
 {
