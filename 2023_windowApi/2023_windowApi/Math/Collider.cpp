@@ -43,6 +43,26 @@ bool Collider::IsCollision(shared_ptr<class Collider> other)
 
 }
 
+float Collider::Left() const
+{
+	return 0.0f;
+}
+
+float Collider::Right() const
+{
+	return 0.0f;
+}
+
+float Collider::Bottom() const
+{
+	return 0.0f;
+}
+
+float Collider::Top() const
+{
+	return 0.0f;
+}
+
 
 
 void Collider::CreatePens()

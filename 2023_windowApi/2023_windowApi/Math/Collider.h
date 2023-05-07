@@ -29,6 +29,12 @@ public:
 	 virtual bool IsCollision(shared_ptr<class RectCollider> other) abstract;
 	 virtual bool IsCollision(shared_ptr<class CircleCollider> other) abstract;
 
+	 virtual float Left() const;
+	 virtual float Right() const;
+	 virtual float Bottom() const;
+	 virtual float Top() const;
+
+
 
 	void SetRed() { _curPenIdex = 1; }
 	void SetGreen() { _curPenIdex = 0; }

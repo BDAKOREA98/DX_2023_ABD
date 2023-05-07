@@ -9,10 +9,10 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	float Left() const { return _center.x - _size.x * 0.5f; }
-	float Right() const { return _center.x + _size.x * 0.5f; }
-	float Bottom() const { return _center.y + _size.y * 0.5f; }
-	float Top() const { return _center.y - _size.y * 0.5f; }
+	virtual float Left() const { return _center.x - _size.x * 0.5f; }
+	virtual float Right() const { return _center.x + _size.x * 0.5f; }
+	virtual float Bottom() const { return _center.y + _size.y * 0.5f; }
+	virtual float Top() const { return _center.y - _size.y * 0.5f; }
 
 	virtual bool IsCollision(const Vector2& pos) override;
 	virtual bool IsCollision(shared_ptr<RectCollider> other) override;

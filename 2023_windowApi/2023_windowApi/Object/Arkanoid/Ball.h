@@ -7,8 +7,24 @@ public:
 
 	void Update();
 	void Render(HDC hdc);
+
+	void Move();
+	bool _start = true;
 private:
-	shared_ptr<CircleCollider> _ball;
+	friend class Stage;
+	friend class Bar;
+
+
+	shared_ptr<Collider> _ball;
+
+
+	Vector2 _direction;
+
+	Vector2 _pos;
+
+	float _time = 0;
+
+
 
 };
 

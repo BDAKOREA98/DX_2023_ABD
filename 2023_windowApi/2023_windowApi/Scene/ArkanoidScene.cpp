@@ -13,6 +13,7 @@ ArkanoidScene::~ArkanoidScene()
 
 void ArkanoidScene::Update()
 {
+	_stage->Update();
 }
 
 void ArkanoidScene::Render(HDC hdc)

@@ -20,6 +20,10 @@ public:
 	virtual bool IsCollision(shared_ptr<CircleCollider> other)override;
 	virtual bool IsCollision(shared_ptr<class RectCollider> other)override;
 
+	 float Left() const { return _center.x - _radius; }
+	 float Right() const { return _center.x + _radius; }
+	 float Bottom() const { return _center.y + _radius; }
+	 float Top() const { return _center.y - _radius; }
 	
 	
 private:
