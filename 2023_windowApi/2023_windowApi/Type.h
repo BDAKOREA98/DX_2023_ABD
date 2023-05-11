@@ -17,7 +17,8 @@
 #define WHITE	 RGB(255,255,255)
 #define PURPLE	 RGB(75,0,100)
 
-
+#define BRICKSIZEX 80
+#define BRICKSIZEY 28
 
 struct HitResult
 {

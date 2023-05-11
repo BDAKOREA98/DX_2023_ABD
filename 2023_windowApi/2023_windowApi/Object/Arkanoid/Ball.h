@@ -9,7 +9,7 @@ public:
 	void Render(HDC hdc);
 
 	void Move();
-	bool _start = true;
+	bool Collision(shared_ptr<class Brick> brick);
 private:
 	friend class Stage;
 	friend class Bar;
@@ -18,7 +18,7 @@ private:
 	shared_ptr<Collider> _ball;
 
 
-	Vector2 _direction;
+	Vector2 _direction = { 0,10 };
 
 	Vector2 _pos;
 

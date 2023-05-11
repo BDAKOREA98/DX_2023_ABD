@@ -19,7 +19,7 @@ public:
 	virtual bool IsCollision(shared_ptr<class CircleCollider> other) override;
 	
 
-
+	void SetSize(Vector2 size) { _size = size; }
 
 
 private:

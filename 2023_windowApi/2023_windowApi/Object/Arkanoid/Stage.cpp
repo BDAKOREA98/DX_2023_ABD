@@ -11,7 +11,7 @@ Stage::Stage()
 
 
 
-	Vector2 offset = Vector2(910,200);
+	Vector2 offset = Vector2(920,150);
 
 
 
@@ -24,12 +24,14 @@ Stage::Stage()
 		{
 			shared_ptr<Brick> brick = make_shared<Brick>();
 
-			brick->SetPosition(offset - Vector2(60 * x, 50 * y));
+			brick->SetPosition(offset - Vector2(80 * x, 50 * y));
 			brick->SetType(Brick::BrickkType::BRICK);
 			_brick[y].push_back(brick);
 			
 		}
 	}
+
+	
 	
 
 
@@ -78,8 +80,14 @@ void Stage::Update()
 		_ball->_direction.x =  _ball->_ball->GetCenter().x-_bar->_bar->GetCenter().x  ;
 		_ball->_direction.y =  _ball->_ball->GetCenter().y-_bar->_bar->GetCenter().y  ;
 	}
-	
-	
+	else if (_bar->_bar->Left() == _ball->_ball->Right() && _bar->_bar->GetCenter().y == _ball->_ball->GetCenter().y)
+	{
+		_ball->_direction.y--;
+	}
+	else if (_bar->_bar->Right() == _ball->_ball->Left() && _bar->_bar->GetCenter().y == _ball->_ball->GetCenter().y)
+	{
+		_ball->_direction.y--;
+	}
 	
 
 	
@@ -120,9 +128,13 @@ void Stage::Update()
 	{
 		for (auto block : brickArr)
 		{
+			_ball->Collision(block);
+
 			block->Update();
 		}
 	}
+
+
 
 
 

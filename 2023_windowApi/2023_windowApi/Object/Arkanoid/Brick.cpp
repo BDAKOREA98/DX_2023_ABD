@@ -23,20 +23,32 @@ Brick::~Brick()
 
 void Brick::Update()
 {
-	_rect->Update();
+	if (_active == true)
+	{
+		dynamic_pointer_cast<RectCollider>(_rect)->SetSize(_size);
+		_rect->SetCenter(_pos);
+		_rect->Update();
+	}
+	
 }
 
 void Brick::Render(HDC hdc)
 {
+	
 	if (_type == BrickkType::NONE)
 	{
 		return;
 	}
 
-	SelectObject(hdc, _brushes[static_cast<unsigned int>(_type)]);
-
-	_rect->Render(hdc);
 	
+	
+
+	if (_active == true)
+	{
+		SelectObject(hdc, _brushes[static_cast<unsigned int>(_type)]);
+
+		_rect->Render(hdc);
+	}
 	
 
 }
