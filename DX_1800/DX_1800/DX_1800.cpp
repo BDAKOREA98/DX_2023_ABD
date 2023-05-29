@@ -374,7 +374,7 @@ void InitDevice()
             D3D11_INPUT_PER_VERTEX_DATA, 0
         },
         {
-            "UV" , 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 28, 
+            "UV" , 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, 
             D3D11_INPUT_PER_VERTEX_DATA, 0
         }
     };
@@ -417,33 +417,33 @@ void InitDevice()
     Vertex v;
     v.pos = { -0.5f , 0.5f, 0.0f }; // 왼쪽 위 
     v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
-    v.uv = {0.0f, 0.0f};
+    v.uv = {1.0f, 0.0f};
     vertices.push_back(v);
 
     v.pos = { 0.5f , 0.5f, 0.0f }; // 오른쪽 위
     v.color = { 0.0f, 1.0f, 0.0f, 1.0f };
-    v.uv = { 1.0f, 0.0f };
+    v.uv = { 0.0f, 0.0f };
     vertices.push_back(v);
      
     v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
     v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
-    v.uv = { 1.0f, 1.0f };
+    v.uv = { 0.0f, 1.0f };
     vertices.push_back(v);
 
     //  사각형 아랫부분 
     v.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위 
     v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
-    v.uv = { 0.0f, 0.0f };
+    v.uv = { 1.0f, 0.0f };
     vertices.push_back(v);
 
     v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
     v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
-    v.uv = { 1.0f, 1.0f };
+    v.uv = { 0.0f, 1.0f };
     vertices.push_back(v);
 
     v.pos = { -0.5f, -0.5f, 0.0f }; // 왼쪽 아래
     v.color = { 1.0f, 1.0f, 1.0f, 1.0f };
-    v.uv = { 0.0f, 1.0f };
+    v.uv = { 1.0f, 1.0f };
     vertices.push_back(v);
 
 
