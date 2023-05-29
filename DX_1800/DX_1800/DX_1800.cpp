@@ -97,12 +97,19 @@ ComPtr<ID3D11InputLayout> inputLayout;
 ComPtr<ID3D11VertexShader> vertexShader;
 ComPtr<ID3D11PixelShader> pixelShader;
 
+ComPtr<ID3D11ShaderResourceView> _shaderReasourceView; // 판박이
+ComPtr<ID3D11SamplerState> _samplerState; // 판박이 붙혀주는 아저씨
+
+
+
 HWND hWnd;
 
 struct Vertex
 {
     XMFLOAT3 pos;
     XMFLOAT4 color;
+    XMFLOAT2 uv;
+
 };
 
 void InitDevice();
@@ -365,6 +372,10 @@ void InitDevice()
         {
             "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12,
             D3D11_INPUT_PER_VERTEX_DATA, 0
+        },
+        {
+            "UV" , 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 28, 
+            D3D11_INPUT_PER_VERTEX_DATA, 0
         }
     };
 
@@ -380,7 +391,7 @@ void InitDevice()
     // vertexShader 만들기
     ComPtr<ID3DBlob> vertexBlob; // vertexShader 만들때 필요한 애
 
-    D3DCompileFromFile(L"Shader/Tutorial_Shader.hlsl", nullptr, nullptr, 
+    D3DCompileFromFile(L"Shader/TextureVS.hlsl", nullptr, nullptr, 
         "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
 
     device->CreateInputLayout(layOut, layOutSize, vertexBlob->GetBufferPointer(),
@@ -392,7 +403,7 @@ void InitDevice()
     // pixelShader 만들기
     ComPtr<ID3DBlob> pixelBlob;
 
-    D3DCompileFromFile(L"Shader/Tutorial_Shader.hlsl", nullptr, nullptr,
+    D3DCompileFromFile(L"Shader/TexturePS.hlsl", nullptr, nullptr,
         "PS", "ps_5_0", flags, 0, pixelBlob.GetAddressOf(), nullptr);
 
     device->CreatePixelShader(pixelBlob->GetBufferPointer(),
@@ -402,21 +413,44 @@ void InitDevice()
     vector<Vertex> vertices;
 
     // 정점들 배열 생성
+    // 사각형 윗부분
     Vertex v;
-    v.pos = { 0.0f , 0.5f, 0.0f }; // 위 
+    v.pos = { -0.5f , 0.5f, 0.0f }; // 왼쪽 위 
     v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
+    v.uv = {0.0f, 0.0f};
     vertices.push_back(v);
-    v.pos = { 0.5f , -0.5f, 0.0f }; // 오른쪽 아래
+
+    v.pos = { 0.5f , 0.5f, 0.0f }; // 오른쪽 위
     v.color = { 0.0f, 1.0f, 0.0f, 1.0f };
+    v.uv = { 1.0f, 0.0f };
     vertices.push_back(v);
-    v.pos = { -0.5f, -0.5f, 0.0f }; // 왼쪽 아래
+     
+    v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
     v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
+    v.uv = { 1.0f, 1.0f };
     vertices.push_back(v);
+
+    //  사각형 아랫부분 
+    v.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위 
+    v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
+    v.uv = { 0.0f, 0.0f };
+    vertices.push_back(v);
+
+    v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
+    v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
+    v.uv = { 1.0f, 1.0f };
+    vertices.push_back(v);
+
+    v.pos = { -0.5f, -0.5f, 0.0f }; // 왼쪽 아래
+    v.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+    v.uv = { 0.0f, 1.0f };
+    vertices.push_back(v);
+
 
     // 정점버퍼들한테 담아서 보내주기
     D3D11_BUFFER_DESC bd = {};
     bd.Usage = D3D11_USAGE_DEFAULT;
-    bd.ByteWidth = sizeof(Vertex) * vertices.size(); // 12 * 3 = 36byye 전체 크기
+    bd.ByteWidth = sizeof(Vertex) * vertices.size(); // 12 * 3 = 36byte 전체 크기
     bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
     D3D11_SUBRESOURCE_DATA initData = {};
@@ -425,6 +459,27 @@ void InitDevice()
     // 1개씩 나눠서 vertex가 몇개인지, 1개당 몇바이트인지, 몇개있는지, 어디서부터 유효한정보가 시작인지 알려줘야함!
 
     device->CreateBuffer(&bd, &initData, IN vertexBuffer.GetAddressOf());
+
+    ScratchImage image; // 사진출력 DXtextur에 있는 클라스
+    wstring path = L"resource/Texture/chaewon.png";
+    LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, nullptr, image);
+
+    // 판박이 만드는 작업
+    CreateShaderResourceView(device.Get(), image.GetImages(), image.GetImageCount(),
+        image.GetMetadata(), _shaderReasourceView.GetAddressOf());
+
+    // 판박이 붙이는 아저씨 만들기
+    D3D11_SAMPLER_DESC sampDesc = {}; // 설명서 만들기 : 내가 읽는 것이 아닌 다른이가 읽도록 해야한다.
+    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+    sampDesc.MinLOD = 0;
+    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+    device->CreateSamplerState(&sampDesc, _samplerState.GetAddressOf());
+
 
 
 }
@@ -446,10 +501,15 @@ void Render()
 
     deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);// 삼각형 형식으로 그리는 방법
 
+#pragma region 채원사진
+    deviceContext->PSSetShaderResources(0, 1, _shaderReasourceView.GetAddressOf());
+    deviceContext->PSGetSamplers(0, 1, _samplerState.GetAddressOf());
+#pragma endregion
+
     deviceContext->VSSetShader(vertexShader.Get(), nullptr, 0);
     deviceContext->PSSetShader(pixelShader.Get(), nullptr, 0);
 
-    deviceContext->Draw(3,0); // vertex개수 3, 시작할 번호 0번째
+    deviceContext->Draw(6,0); // vertex개수 3, 시작할 번호 0번째
 
     swapChain->Present(0, 0);
 

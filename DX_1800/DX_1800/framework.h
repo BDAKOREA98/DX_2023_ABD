@@ -28,6 +28,8 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
+#include "../DxTex/DirectXTex.h"
+
 using namespace std;
 using namespace DirectX;
 using namespace Microsoft::WRL;
