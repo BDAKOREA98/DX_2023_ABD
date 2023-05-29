@@ -2,6 +2,18 @@
 // 그저 비슷할 뿐
 
 
+struct VertexInput
+{
+	float4 pos : POSITION;
+	float4 color : COLOR;
+};
+
+struct VertexOutput
+{
+	float4 pos : SV_POSITION;
+	float4 color : COLOR;
+};
+
 
 
 // Symentic Name
@@ -9,13 +21,17 @@
 // 
 // vertex buffer에서 포지션을 받은 후 리턴
 // 받은 포지션을 SV_POSITION에 넣어줌 = vertexsader에 넣어줌
-float4 VS(float4 pos : POSITION) : SV_POSITION 
+VertexOutput VS(VertexInput input)
 {
-	return pos;
+	VertexOutput result;
+	result.pos = input.pos;
+	result.color = input.color;
+
+	return result;
 }
 
 // 받은 SV_POSITION을 PixelShader에 넣어줌
-float4 PS() : SV_TARGET
+float4 PS(VertexOutput input) : SV_TARGET
 {
-	return float4(1.0f, 1.0f, 0.0f, 1.0f);
+	return input.color;
 }

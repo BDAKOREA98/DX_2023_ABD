@@ -102,7 +102,7 @@ HWND hWnd;
 struct Vertex
 {
     XMFLOAT3 pos;
-
+    XMFLOAT4 color;
 };
 
 void InitDevice();
@@ -361,6 +361,10 @@ void InitDevice()
             D3D11_INPUT_PER_VERTEX_DATA,0
             // vertex마다의 데이터
 
+        },
+        {
+            "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12,
+            D3D11_INPUT_PER_VERTEX_DATA, 0
         }
     };
 
@@ -400,10 +404,13 @@ void InitDevice()
     // 정점들 배열 생성
     Vertex v;
     v.pos = { 0.0f , 0.5f, 0.0f }; // 위 
+    v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
     vertices.push_back(v);
     v.pos = { 0.5f , -0.5f, 0.0f }; // 오른쪽 아래
+    v.color = { 0.0f, 1.0f, 0.0f, 1.0f };
     vertices.push_back(v);
     v.pos = { -0.5f, -0.5f, 0.0f }; // 왼쪽 아래
+    v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
     vertices.push_back(v);
 
     // 정점버퍼들한테 담아서 보내주기
