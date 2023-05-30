@@ -62,58 +62,20 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 // - 외주를 맡기고 실질적인 노가다 대표 뽑기
 // - 컴퓨터의 하드웨어 기능 점검, 리소스 할당 하는 애들을 뽑아주는 애 
 
-Microsoft::WRL::ComPtr<ID3D11Device> device; // 외주맡기는데 필요한 애들을 이것을 이용해서 고용할 예정
-// Dirext X 를 사용할때는 sheardptr이 아닌 comptr을 사용한다. microsoft에서 만든 객체지향성 포인트
-// why?? => device = new ID3D11Device(); 이런 형식으로 만드는것이 아님 --- new를 이용해서 동적할당 하는것이 아니다.
-// API처럼 Create 로 생성 지울땐 release로 관리하기에 sheard로 관리가 안됨 ' 즉 delete하면 터진다.
-// microsoft에서 만든 스마트 포인터 == ComPtr
 
-// 연출감독
-// 세트장을 실질적으로 꾸며주는 연출가
-// 렌더링 대상 결정(어디에 그릴지 결정해줌)
-// -> 리소스를 그래픽 파이프라인에 바인딩함, 리소스 할당
-ComPtr<ID3D11DeviceContext> deviceContext; // DC라고 부름
 
-// DX의 인터페이스로써 1개이상의 표면을 포함할 수 있다.
-// 각각의 표면 (버퍼, 텍스쳐) 를 출력하기 전에 데이터를 보관한다.
-ComPtr<IDXGISwapChain> swapChain;
-
-// 버퍼와 텍스쳐의 역할은 거의 동일하다고 보면 된다. 
-// 버퍼 : 누구한테 받거나 전달하기위한 임시 저장소까지 들고있음
-// 텍스쳐 : 갖고있는 정보를 그대로 표출
-// 후면 버퍼를 가리키는 포인터
-// 후면 버퍼 == 지금 당장 그릴 곳
-ComPtr<ID3D11RenderTargetView> renderTargetView;
-
-// 렌더링 파이프 라인 단계
-ComPtr<ID3D11Buffer> vertexBuffer;
 // 3D구간의 정점(CPU에 있는 정점)을 GPU한테 전달
-ComPtr<ID3D11InputLayout> inputLayout;
 // layeout == 배치, 입력
 // CPU와 GPU가 서로 아는가?? -> NO 서로 별개의 존재같은 느낌(외계인보듯)
 // 전달하는 내용은 010101의 2진법 전기신호일 것
 // vertex컬러 정보를 전달하고 싶다면? ...-> GPU가 잘 못 읽을 수 있음
 // 제대로 정보전달을 읽게하기 위해 정보를 읽는 방법을 동봉해야함 == inputLayout
-ComPtr<ID3D11VertexShader> vertexShader;
-ComPtr<ID3D11PixelShader> pixelShader;
 
-ComPtr<ID3D11ShaderResourceView> _shaderReasourceView; // 판박이
-ComPtr<ID3D11SamplerState> _samplerState; // 판박이 붙혀주는 아저씨
 
 
 
 HWND hWnd;
 
-struct Vertex
-{
-    XMFLOAT3 pos;
-    XMFLOAT4 color;
-    XMFLOAT2 uv;
-
-};
-
-void InitDevice();
-void Render();
 
 
 
@@ -148,7 +110,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_DX1800));
 
     // 생성
-    InitDevice();
+    Device::Create();
+
+    shared_ptr<Program> program = make_shared<Program>();
 
 
     MSG msg = {};
@@ -167,9 +131,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 메인 루프
-            Render();
+            program->Update();
+            program->Render();
+
+
         }
     }
+
+    // 삭제
+    Device::Delete();
 
     return (int) msg.wParam;
 }
@@ -217,7 +187,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+      0, 0, // 윈도우창 시작지점
+       WIN_WIDTH, WIN_HEIGHT, // 크기
+       nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -298,219 +270,3 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     return (INT_PTR)FALSE;
 }
 
-void InitDevice()
-{
-    RECT rc;
-    GetClientRect(hWnd, &rc);
-    UINT width = rc.right - rc.left;
-    UINT height = rc.bottom - rc.top;
-
-    D3D_FEATURE_LEVEL featureLevels[] =
-    {
-        D3D_FEATURE_LEVEL_11_0,
-        D3D_FEATURE_LEVEL_10_1,
-        D3D_FEATURE_LEVEL_10_0
-
-    };
-
-    UINT featureSize = ARRAYSIZE(featureLevels);
-
-    DXGI_SWAP_CHAIN_DESC sd = {};
-    sd.BufferCount = 1;
-    sd.BufferDesc.Width = width;
-    sd.BufferDesc.Height = height;
-    sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-    sd.BufferDesc.RefreshRate.Numerator = 60;
-    sd.BufferDesc.RefreshRate.Denominator = 1;
-    // numerator 나누기 Denominator = > 화면 프레인 갱신 속도
-    sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-    sd.OutputWindow = hWnd;
-    sd.SampleDesc.Count = 1;
-    sd.SampleDesc.Quality = 0;
-    sd.Windowed = true; // 창모드
-
-    D3D11CreateDeviceAndSwapChain(
-        nullptr,
-        D3D_DRIVER_TYPE_HARDWARE,
-        0,
-        D3D11_CREATE_DEVICE_DEBUG,
-        featureLevels,
-        featureSize,
-        D3D11_SDK_VERSION, // 개발 툴??
-        &sd,
-        IN swapChain.GetAddressOf(),// 포인터 자체의 원본을 가져온다 - 더블 포인터
-        IN device.GetAddressOf(),
-        nullptr,
-        IN deviceContext.GetAddressOf()
-    );
-
-    ComPtr<ID3D11Texture2D> backBuffer;
-
-    swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)backBuffer.GetAddressOf());
-    device->CreateRenderTargetView(backBuffer.Get(), nullptr, renderTargetView.GetAddressOf());
-
-    deviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), nullptr); // OM (out put merge) // 병합단계
-
-    D3D11_VIEWPORT vp; // 카메라의 큰 사각형의 설명서
-    vp.Width = width;
-    vp.Height = height;
-    vp.MinDepth = 0.0f;
-    vp.MaxDepth = 1.0f;
-    vp.TopLeftX = 0;
-    vp.TopLeftY = 0;
-    deviceContext->RSSetViewports(1, &vp); // 레스터화 단계
-
-    D3D11_INPUT_ELEMENT_DESC layOut[] =
-    {
-        {
-            "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,0,0,
-            //                RGB가 32bit => 12byte    start
-            D3D11_INPUT_PER_VERTEX_DATA,0
-            // vertex마다의 데이터
-
-        },
-        {
-            "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12,
-            D3D11_INPUT_PER_VERTEX_DATA, 0
-        },
-        {
-            "UV" , 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, 
-            D3D11_INPUT_PER_VERTEX_DATA, 0
-        }
-    };
-
-    UINT layOutSize = ARRAYSIZE(layOut);
-    
-    DWORD flags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
-
-   
-    
-    //wstring temp;
-    // 
-
-    // vertexShader 만들기
-    ComPtr<ID3DBlob> vertexBlob; // vertexShader 만들때 필요한 애
-
-    D3DCompileFromFile(L"Shader/TextureVS.hlsl", nullptr, nullptr, 
-        "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
-
-    device->CreateInputLayout(layOut, layOutSize, vertexBlob->GetBufferPointer(),
-        vertexBlob->GetBufferSize(), IN inputLayout.GetAddressOf());
-
-    device->CreateVertexShader(vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(),
-        nullptr, IN vertexShader.GetAddressOf());
-
-    // pixelShader 만들기
-    ComPtr<ID3DBlob> pixelBlob;
-
-    D3DCompileFromFile(L"Shader/TexturePS.hlsl", nullptr, nullptr,
-        "PS", "ps_5_0", flags, 0, pixelBlob.GetAddressOf(), nullptr);
-
-    device->CreatePixelShader(pixelBlob->GetBufferPointer(),
-        pixelBlob->GetBufferSize(), nullptr, IN pixelShader.GetAddressOf());
-
-    // 3차원 공간을 표현할 수 있는 사용자 정의 자료형
-    vector<Vertex> vertices;
-
-    // 정점들 배열 생성
-    // 사각형 윗부분
-    Vertex v;
-    v.pos = { -0.5f , 0.5f, 0.0f }; // 왼쪽 위 
-    v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
-    v.uv = {1.0f, 0.0f};
-    vertices.push_back(v);
-
-    v.pos = { 0.5f , 0.5f, 0.0f }; // 오른쪽 위
-    v.color = { 0.0f, 1.0f, 0.0f, 1.0f };
-    v.uv = { 0.0f, 0.0f };
-    vertices.push_back(v);
-     
-    v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
-    v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
-    v.uv = { 0.0f, 1.0f };
-    vertices.push_back(v);
-
-    //  사각형 아랫부분 
-    v.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위 
-    v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
-    v.uv = { 1.0f, 0.0f };
-    vertices.push_back(v);
-
-    v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
-    v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
-    v.uv = { 0.0f, 1.0f };
-    vertices.push_back(v);
-
-    v.pos = { -0.5f, -0.5f, 0.0f }; // 왼쪽 아래
-    v.color = { 1.0f, 1.0f, 1.0f, 1.0f };
-    v.uv = { 1.0f, 1.0f };
-    vertices.push_back(v);
-
-
-    // 정점버퍼들한테 담아서 보내주기
-    D3D11_BUFFER_DESC bd = {};
-    bd.Usage = D3D11_USAGE_DEFAULT;
-    bd.ByteWidth = sizeof(Vertex) * vertices.size(); // 12 * 3 = 36byte 전체 크기
-    bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-
-    D3D11_SUBRESOURCE_DATA initData = {};
-    initData.pSysMem = vertices.data();  // vector의 첫 번째 주소를 반환 => vertices.data() == &vertices[0]
-    // RAM 정보들을 GPU로 보낼때 시작지점과 끝나는 지점을 알아야함!
-    // 1개씩 나눠서 vertex가 몇개인지, 1개당 몇바이트인지, 몇개있는지, 어디서부터 유효한정보가 시작인지 알려줘야함!
-
-    device->CreateBuffer(&bd, &initData, IN vertexBuffer.GetAddressOf());
-
-    ScratchImage image; // 사진출력 DXtextur에 있는 클라스
-    wstring path = L"resource/Texture/chaewon.png";
-    LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, nullptr, image);
-
-    // 판박이 만드는 작업
-    CreateShaderResourceView(device.Get(), image.GetImages(), image.GetImageCount(),
-        image.GetMetadata(), _shaderReasourceView.GetAddressOf());
-
-    // 판박이 붙이는 아저씨 만들기
-    D3D11_SAMPLER_DESC sampDesc = {}; // 설명서 만들기 : 내가 읽는 것이 아닌 다른이가 읽도록 해야한다.
-    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-    sampDesc.MinLOD = 0;
-    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-    device->CreateSamplerState(&sampDesc, _samplerState.GetAddressOf());
-
-
-
-}
-
-void Render()
-{
-    FLOAT myColorR = 0.0f;
-    FLOAT myColorG = 0.0f;
-    FLOAT myColorB = 0.0f;
-
-    FLOAT clearColor[4] = { myColorR, myColorG, myColorB, 1.0f };
-
-    deviceContext->ClearRenderTargetView(renderTargetView.Get(), clearColor); // 배경 만들기
-
-    deviceContext->IASetInputLayout(inputLayout.Get());
-    UINT stride = sizeof(Vertex);
-    UINT offset = 0;
-    deviceContext->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &stride, &offset);
-
-    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);// 삼각형 형식으로 그리는 방법
-
-#pragma region 채원사진
-    deviceContext->PSSetShaderResources(0, 1, _shaderReasourceView.GetAddressOf());
-    deviceContext->PSGetSamplers(0, 1, _samplerState.GetAddressOf());
-#pragma endregion
-
-    deviceContext->VSSetShader(vertexShader.Get(), nullptr, 0);
-    deviceContext->PSSetShader(pixelShader.Get(), nullptr, 0);
-
-    deviceContext->Draw(6,0); // vertex개수 3, 시작할 번호 0번째
-
-    swapChain->Present(0, 0);
-
-}
