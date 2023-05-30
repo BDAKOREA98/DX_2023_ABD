@@ -48,6 +48,8 @@ using namespace Microsoft::WRL;
 #include "Framework/TextureMapping/SRV.h"
 #include "Framework/TextureMapping/SamplerState.h"
 
+// Object
+#include "Object/BasicObject/Qurd.h"
 // Scene
 #include "Scene/Scene.h"
 

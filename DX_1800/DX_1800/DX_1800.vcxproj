@@ -156,6 +156,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Framework\Render\PixelShader.h" />
     <ClInclude Include="Program\Program.h" />
+    <ClInclude Include="Object\BasicObject\Qurd.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Framework\TextureMapping\SamplerState.h" />
     <ClInclude Include="Framework\TextureMapping\SRV.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Framework\Render\VertexShader.cpp" />
     <ClCompile Include="Framework\TextureMapping\SamplerState.cpp" />
     <ClCompile Include="Framework\TextureMapping\SRV.cpp" />
+    <ClCompile Include="Object\BasicObject\Qurd.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\BasicScene\TutorialScene.cpp" />
   </ItemGroup>
