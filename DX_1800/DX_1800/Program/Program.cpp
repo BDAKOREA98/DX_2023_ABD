@@ -14,6 +14,7 @@ Program::~Program()
 
 void Program::Update()
 {
+	_curscene->Update();
 }
 
 void Program::Render()

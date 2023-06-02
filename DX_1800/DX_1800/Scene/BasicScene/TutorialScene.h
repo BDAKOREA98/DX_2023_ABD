@@ -14,9 +14,14 @@ public:
 
 private:
 	
+	float _x = 0.0f;
+	float _y = 0.0f;
+
 	shared_ptr<Qurd> _qurd;
 
-
+	shared_ptr<MatrixBuffer> _world;
+	shared_ptr<MatrixBuffer> _view;
+	shared_ptr<MatrixBuffer> _proj;
 
 };
 
