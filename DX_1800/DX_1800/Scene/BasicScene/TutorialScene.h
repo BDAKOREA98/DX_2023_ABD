@@ -14,13 +14,12 @@ public:
 
 private:
 	
-	float _x = WIN_WIDTH / 2;
-	float _y = WIN_HEIGHT / 2;
-
-	float _size = 1.0f;
-	float _angle = 1.0f;
 
 	shared_ptr<Qurd> _qurd;
+
+	
+
+	shared_ptr<Transform> _transform;
 
 	shared_ptr<MatrixBuffer> _world;
 	shared_ptr<MatrixBuffer> _view;
