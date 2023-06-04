@@ -17,13 +17,8 @@ private:
 
 	shared_ptr<Qurd> _qurd;
 
+
+
 	
-
-	shared_ptr<Transform> _transform;
-
-	shared_ptr<MatrixBuffer> _world;
-	shared_ptr<MatrixBuffer> _view;
-	shared_ptr<MatrixBuffer> _proj;
-
 };
 

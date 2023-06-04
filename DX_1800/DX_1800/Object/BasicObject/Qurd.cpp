@@ -5,11 +5,15 @@
 
 Qurd::Qurd(wstring path)
 {
+    _srv = make_shared<SRV>(path);
+    _sampler = make_shared<SamplerState>();
+
 	CreateVertices();
 	CreateData(path);
 
-	_srv = make_shared<SRV>(L"Resource/Texture/chaewon.png");
-	_sampler = make_shared<SamplerState>();
+    _transform = make_shared<Transform>();
+
+	
 }
 
 Qurd::~Qurd()
@@ -18,11 +22,13 @@ Qurd::~Qurd()
 
 void Qurd::Update()
 {
+    _transform->Update();
 }
 
 void Qurd::Render()
 {
-
+    _transform->SetWorldBuffer(0);
+    
     _vertexBuffer->SetIA_VertexBuffer();
     _indexBuffer->SetIA_IndexBuffer();
 
@@ -46,23 +52,26 @@ void Qurd::CreateVertices()
 {
 
     Vertex v;
-    v.pos = { -250.0f , 250.0f, 0.0f }; // 왼쪽 위 
+
+    Vector2 halfSize = _srv->GetImageze() * 0.5;
+
+    v.pos = { -halfSize.x , halfSize.y, 0.0f }; // 왼쪽 위 
     v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
     v.uv = { 0.0f, 0.0f };
     _vertices.push_back(v);
 
-    v.pos = { 250.0f , 250.0f, 0.0f }; // 오른쪽 위
+    v.pos = { halfSize.x , halfSize.y, 0.0f }; // 오른쪽 위
     v.color = { 0.0f, 1.0f, 0.0f, 1.0f };
     v.uv = { 1.0f, 0.0f };
     _vertices.push_back(v);
 
     
-    v.pos = { 250.0f, -250.0f, 0.0f }; // 오른쪽 아래
+    v.pos = { halfSize.x, -halfSize.y, 0.0f }; // 오른쪽 아래
     v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
     v.uv = { 1.0f, 1.0f };
     _vertices.push_back(v);
 
-    v.pos = { -250.0f, -250.0f, 0.0f }; // 왼쪽 아래
+    v.pos = { -halfSize.x, -halfSize.y, 0.0f }; // 왼쪽 아래
     v.color = { 1.0f, 1.0f, 1.0f, 1.0f };
     v.uv = { 0.0f, 1.0f };
     _vertices.push_back(v);
@@ -90,7 +99,6 @@ void Qurd::CreateData(wstring path)
     _vs = make_shared<VertexShader>(L"Shader/TextureVS.hlsl");
 	_ps = make_shared<PixelShader>(L"Shader/TexturePS.hlsl");
 
-    _srv = make_shared<SRV>(path);
-    _sampler = make_shared<SamplerState>();
+   
 
 }
