@@ -55,6 +55,8 @@ Vector2 Transform::GetWorldPos() const
 
     XMStoreFloat4x4(&temp, _srtMatrix);
 
+
+    // 이동 행렬의 위치는 4-1, 4-2이므로 41,42
     return Vector2(temp._41, temp._42);
 }
 

@@ -24,6 +24,12 @@ SolarSystem::SolarSystem()
 	
 	_earth->SetParent(_sun->GetOrbit());
 	_moon->SetParent(_earth->GetTransform());
+
+	// Alpha or Additive처리
+	// Alpha == 텍스쳐 본인의 색을 가져옴
+	// Additive == 뒤에있는 색을 혼합해서 가져옴
+	_BlendState = make_shared<BlendState>();
+	_BlendState->Alpha();
 }
 
 SolarSystem::~SolarSystem()
@@ -33,6 +39,7 @@ SolarSystem::~SolarSystem()
 void SolarSystem::Update()
 {
 	
+	_BlendState->SetState();
 	_sun->SetPosition(mousePos);
 
 

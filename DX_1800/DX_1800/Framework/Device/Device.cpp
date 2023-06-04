@@ -20,7 +20,7 @@ void Device::Clear()
     FLOAT myColorR = 0.0f;
     FLOAT myColorG = 0.0f;
     FLOAT myColorB = 0.0f;
-
+                       
     FLOAT clearColor[4] = { myColorR, myColorG, myColorB, 1.0f };
 
     deviceContext->ClearRenderTargetView(renderTargetView.Get(), clearColor); // 배경 만들기

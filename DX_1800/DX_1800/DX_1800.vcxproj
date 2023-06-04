@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\TextureMapping\BlendState.h" />
     <ClInclude Include="Object\Obj\DunGreed\DunBullet.h" />
     <ClInclude Include="Object\Obj\DunGreed\DunPlayer.h" />
     <ClInclude Include="Scene\BasicScene\DunGreed.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\TextureMapping\BlendState.cpp" />
     <ClCompile Include="Object\Obj\DunGreed\DunBullet.cpp" />
     <ClCompile Include="Object\Obj\DunGreed\DunPlayer.cpp" />
     <ClCompile Include="Scene\BasicScene\DunGreed.cpp" />
