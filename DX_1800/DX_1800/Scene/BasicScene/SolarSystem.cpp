@@ -33,7 +33,9 @@ SolarSystem::~SolarSystem()
 void SolarSystem::Update()
 {
 	
-	
+	_sun->SetPosition(mousePos);
+
+
 	_sun->Update();
 	_earth->Update();
 	_moon->Update();

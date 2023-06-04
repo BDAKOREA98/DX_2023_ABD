@@ -49,3 +49,12 @@ void Transform::SetWorldBuffer(UINT slot)
 
    
 }
+Vector2 Transform::GetWorldPos() const
+{
+    XMFLOAT4X4 temp;
+
+    XMStoreFloat4x4(&temp, _srtMatrix);
+
+    return Vector2(temp._41, temp._42);
+}
+

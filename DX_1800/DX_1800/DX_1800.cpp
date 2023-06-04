@@ -197,6 +197,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    }
 
    ShowWindow(hWnd, nCmdShow);
+   // 메뉴 숨기기
+   SetMenu(hWnd, nullptr);
    UpdateWindow(hWnd);
 
    return TRUE;
@@ -212,6 +214,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+
+Vector2 mousePos;
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -233,6 +238,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+
+        // 마우스커서 따라오기
+    case WM_MOUSEMOVE:
+    {
+        mousePos.x = static_cast<float>(LOWORD(lParam));
+        mousePos.y = WIN_HEIGHT - static_cast<float>(HIWORD(lParam));
+    }
+
     case WM_PAINT:
         {
             PAINTSTRUCT ps;

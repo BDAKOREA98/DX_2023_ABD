@@ -61,6 +61,9 @@ using namespace Microsoft::WRL;
 // Obj
 #include "Object/Obj/Planet.h"
 
+// DUN
+#include "Object/Obj/DunGreed/DunBullet.h"
+#include "Object/Obj/DunGreed/DunPlayer.h"
 // Scene
 #include "Scene/Scene.h"
 
@@ -71,3 +74,4 @@ using namespace Microsoft::WRL;
 #include "Types.h"
 
 extern HWND hWnd;
+extern Vector2 mousePos;
