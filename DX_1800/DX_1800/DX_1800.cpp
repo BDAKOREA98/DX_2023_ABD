@@ -111,6 +111,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 생성
     Device::Create();
+    InputManager::Create();
     StateManager::Create();
 
     shared_ptr<Program> program = make_shared<Program>();
@@ -141,6 +142,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 삭제
     StateManager::Delete();
+    InputManager::Delete();
     Device::Delete();
 
     return (int) msg.wParam;
@@ -217,7 +219,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
-Vector2 mousePos;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -244,8 +245,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         // 마우스커서 따라오기
     case WM_MOUSEMOVE:
     {
+        Vector2 mousePos;
         mousePos.x = static_cast<float>(LOWORD(lParam));
         mousePos.y = WIN_HEIGHT - static_cast<float>(HIWORD(lParam));
+
+        InputManager::GetInstance()->SetMousePos(mousePos);
+        break;
     }
 
     case WM_PAINT:

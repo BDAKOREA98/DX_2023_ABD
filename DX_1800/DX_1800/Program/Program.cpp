@@ -7,7 +7,7 @@
 
 Program::Program()
 {
-	_curscene = make_shared<DunGreed>();
+	_curscene = make_shared<SolarSystem>();
 
     _view = make_shared<MatrixBuffer>();
     _proj = make_shared<MatrixBuffer>();
@@ -31,7 +31,10 @@ Program::~Program()
 
 void Program::Update()
 {
-	_curscene->Update();
+    InputManager::GetInstance()->Update();
+
+    _curscene->Update();
+
 }
 
 void Program::Render()
@@ -42,7 +45,7 @@ void Program::Render()
     _view->SetVS_Buffer(1);
     _proj->SetVS_Buffer(2);
 
-    ALPHA->SetState();
+    ADDITIVE->SetState();
 	_curscene->Render();
 
 	Device::GetInstance()->Present();

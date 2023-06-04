@@ -19,7 +19,7 @@ DunGreed::~DunGreed()
 void DunGreed::Update()
 {
 	_player->Update();
-	_chaewon->SetPosition(mousePos);
+	_chaewon->SetPosition(MOUSE_POS);
 	_chaewon->Update();
 }
 

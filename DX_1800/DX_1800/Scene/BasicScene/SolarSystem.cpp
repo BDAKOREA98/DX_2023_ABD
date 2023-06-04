@@ -37,11 +37,17 @@ SolarSystem::~SolarSystem()
 
 void SolarSystem::Update()
 {
-	
-	
-	_sun->SetPosition(mousePos);
 
-
+	if (KEY_PRESS('A'))
+	{
+		_sun->SetPosition(MOUSE_POS);
+	}
+	// 선형보간법
+	if (KEY_PRESS('D'))
+	{
+		Vector2 lerpPos = LERP(_sun->GetTransform()->GetPos(), MOUSE_POS, 0.001f);
+		_sun->SetPosition(lerpPos);
+	}
 	_sun->Update();
 	_earth->Update();
 	_moon->Update();
