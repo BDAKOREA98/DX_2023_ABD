@@ -33,6 +33,13 @@ void Transform::Update_SRT()
     XMMATRIX tanslate = XMMatrixTranslation(_pos.x, _pos.y, 0);
 
     _srtMatrix = scale * rotate * tanslate;
+
+    if (_parent.expired() == false)
+    {               // 행렬의 뒤에다가 곱해준다 == 행렬의 종속이다.
+        _srtMatrix *= _parent.lock()->GetSRT();
+
+    }
+
 }
 
 void Transform::SetWorldBuffer(UINT slot)

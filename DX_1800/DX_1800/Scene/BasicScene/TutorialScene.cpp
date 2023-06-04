@@ -3,7 +3,7 @@
 
 TutorialScene::TutorialScene()
 {
-    _qurd = make_shared<Qurd>(L"Resource/Texture/chaewon.png");
+    _qurd = make_shared<Quad>(L"Resource/Texture/chaewon.png");
 
     _qurd->GetTransform()->SetPosition(CENTER);
     _qurd->GetTransform()->SetScale(Vector2(0.7f,0.7f));

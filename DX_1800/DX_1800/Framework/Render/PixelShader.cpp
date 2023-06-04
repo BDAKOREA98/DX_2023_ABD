@@ -17,7 +17,7 @@ void PixelShader::CreateBlob(wstring path)
 
   
 
-    D3DCompileFromFile(L"Shader/TexturePS.hlsl", nullptr, nullptr,
+    D3DCompileFromFile(path.c_str(), nullptr, nullptr,
         "PS", "ps_5_0", flags, 0, pixelBlob.GetAddressOf(), nullptr);
 
 }

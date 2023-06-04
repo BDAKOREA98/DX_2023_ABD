@@ -1,9 +1,9 @@
 #include "framework.h"
-#include "Qurd.h"
+#include "Quad.h"
 
 
 
-Qurd::Qurd(wstring path)
+Quad::Quad(wstring path)
 {
     _srv = make_shared<SRV>(path);
     _sampler = make_shared<SamplerState>();
@@ -16,16 +16,16 @@ Qurd::Qurd(wstring path)
 	
 }
 
-Qurd::~Qurd()
+Quad::~Quad()
 {
 }
 
-void Qurd::Update()
+void Quad::Update()
 {
     _transform->Update();
 }
 
-void Qurd::Render()
+void Quad::Render()
 {
     _transform->SetWorldBuffer(0);
     
@@ -48,7 +48,7 @@ void Qurd::Render()
 
 }
 
-void Qurd::CreateVertices()
+void Quad::CreateVertices()
 {
 
     Vertex v;
@@ -88,7 +88,7 @@ void Qurd::CreateVertices()
 
 }
 
-void Qurd::CreateData(wstring path)
+void Quad::CreateData(wstring path)
 {
 
 

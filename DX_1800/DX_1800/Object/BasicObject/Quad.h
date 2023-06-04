@@ -1,10 +1,10 @@
 #pragma once
-class Qurd
+class Quad
 {
 public:
 
-	Qurd(wstring path);
-	~Qurd();
+	Quad(wstring path);
+	~Quad();
 
 	void Update();
 	void Render();

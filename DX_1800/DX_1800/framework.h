@@ -56,7 +56,11 @@ using namespace Microsoft::WRL;
 #include "Framework/TextureMapping/SamplerState.h"
 
 // Object
-#include "Object/BasicObject/Qurd.h"
+#include "Object/BasicObject/Quad.h"
+
+// Obj
+#include "Object/Obj/Planet.h"
+
 // Scene
 #include "Scene/Scene.h"
 

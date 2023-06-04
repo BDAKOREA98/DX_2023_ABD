@@ -15,7 +15,7 @@ public:
 private:
 	
 
-	shared_ptr<Qurd> _qurd;
+	shared_ptr<Quad> _qurd;
 
 
 
