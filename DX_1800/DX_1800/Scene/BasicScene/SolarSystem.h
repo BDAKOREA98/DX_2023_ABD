@@ -14,7 +14,6 @@ public:
 
 private:
 
-	shared_ptr<BlendState> _BlendState;
 
 	shared_ptr<Planet> _sun;
 	shared_ptr<Planet> _earth;

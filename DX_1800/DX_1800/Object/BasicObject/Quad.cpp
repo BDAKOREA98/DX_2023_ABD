@@ -6,7 +6,6 @@
 Quad::Quad(wstring path)
 {
     _srv = make_shared<SRV>(path);
-    _sampler = make_shared<SamplerState>();
 
 	CreateVertices();
 	CreateData(path);
@@ -38,8 +37,7 @@ void Quad::Render()
     DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     _srv->SetSRV(0);
-
-    _sampler->SetSampler();
+    SAMPLER->SetSampler();
 
     _vs->Set_VS();
     _ps->Set_PS();

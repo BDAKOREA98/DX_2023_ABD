@@ -9,3 +9,7 @@
 #define DC	   Device::GetInstance()->GetDC()
 
 
+#define ALPHA		StateManager::GetInstance()->GetAlpha()
+#define ADDITIVE	StateManager::GetInstance()->GetAdditive()
+#define BLEND		StateManager::GetInstance()->GetBlend()
+#define SAMPLER		StateManager::GetInstance()->GetSampler()
