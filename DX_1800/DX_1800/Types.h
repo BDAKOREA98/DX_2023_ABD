@@ -22,3 +22,9 @@
 
 #define LERP(s,e,t) s + (e - s)*t
 #define PI 3.141592
+
+#define RED		{ 1.0f, 0.0f, 0.0f, 1.0f }
+#define BLUE	{ 0.0f, 0.0f, 1.0f, 1.0f }
+#define WHITE	{ 1.0f, 1.0f, 1.0f, 1.0f }
+#define GREEN	{ 0.0f, 1.0f, 0.0f, 1.0f }
+//#define BLUE	{ 1.0f, 1.0f, 1.0f, 1.0f }

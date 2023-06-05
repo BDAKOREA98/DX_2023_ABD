@@ -14,7 +14,7 @@ public:
 private:
 	void CreateVertexBuffer();
 
-	vector<Vertex> vertices;
+	vector<Vertex_Texture> vertices;
 	ComPtr<ID3D11Buffer> vertexBuffer;
 	void* _data = nullptr;
 

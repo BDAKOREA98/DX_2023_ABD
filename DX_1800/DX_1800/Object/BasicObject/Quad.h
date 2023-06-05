@@ -18,7 +18,7 @@ public:
 private:
 
 
-	vector<Vertex> _vertices;
+	vector<Vertex_Texture> _vertices;
 	vector<UINT> _indices;
 
 

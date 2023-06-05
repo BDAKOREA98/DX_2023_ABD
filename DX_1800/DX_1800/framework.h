@@ -64,6 +64,9 @@ using namespace Microsoft::WRL;
 // Object
 #include "Object/BasicObject/Quad.h"
 
+// Collider
+#include "Framework/Collider/RectCollider.h"
+
 // Obj
 #include "Object/Obj/Planet.h"
 

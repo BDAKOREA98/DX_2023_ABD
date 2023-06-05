@@ -4,10 +4,11 @@
 #include "../Scene/BasicScene/TutorialScene.h"
 #include "../Scene/BasicScene/SolarSystem.h"
 #include "../Scene/BasicScene/DunGreed.h"
+#include "../Scene/BasicScene/ColliderScene.h"
 
 Program::Program()
 {
-	_curscene = make_shared<SolarSystem>();
+	_curscene = make_shared<ColliderScene>();
 
     _view = make_shared<MatrixBuffer>();
     _proj = make_shared<MatrixBuffer>();
