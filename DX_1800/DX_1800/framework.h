@@ -66,6 +66,7 @@ using namespace Microsoft::WRL;
 
 // Collider
 #include "Framework/Collider/RectCollider.h"
+#include "Framework/Collider/CircleCollider.h"
 
 // Obj
 #include "Object/Obj/Planet.h"
