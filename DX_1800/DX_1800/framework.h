@@ -65,6 +65,7 @@ using namespace Microsoft::WRL;
 #include "Object/BasicObject/Quad.h"
 
 // Collider
+#include "Framework/Collider/Collider.h"
 #include "Framework/Collider/RectCollider.h"
 #include "Framework/Collider/CircleCollider.h"
 

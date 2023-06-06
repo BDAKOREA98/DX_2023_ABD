@@ -9,9 +9,15 @@ public:
 	virtual void Render() override;
 
 private:
-	shared_ptr<RectCollider> _rectCollider;
+	shared_ptr<RectCollider> _rect;
+	shared_ptr<RectCollider> _rectcol;
+	
+	
+	shared_ptr<CircleCollider> _Circle;
+	shared_ptr<CircleCollider> _Circlecol;
 
-	shared_ptr<CircleCollider> _CircleCollider;
+
+
 
 };
 

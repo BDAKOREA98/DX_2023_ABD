@@ -1,44 +1,24 @@
 #pragma once
-class CircleCollider
+class CircleCollider : public enable_shared_from_this<CircleCollider>, public Collider
 {
 public:
-
 	CircleCollider(float radius);
-	~CircleCollider();
+	virtual ~CircleCollider();
 
-
-	void Update();
-	void Render();
+	virtual void Update() override;
+	virtual  void Render() override;
 
 	void CreateVertices();
 	void CreateData();
 
-	void SetRed() { _colorBuffer->SetColor(RED); }
-	void SetGreen() { _colorBuffer->SetColor(GREEN); }
-	void SetBlue() { _colorBuffer->SetColor(BLUE); }
-	void SetWhite() { _colorBuffer->SetColor(WHITE); }
+	virtual bool IsCollision(const Vector2& pos) override;
+	virtual bool IsCollision(shared_ptr<CircleCollider> col) override;
+	virtual bool IsCollision(shared_ptr<RectCollider> col) override;
 
-
-
-
-
-	shared_ptr<Transform> GetTranform() { return _transform; }
-
+	float GetRadius() { return _radius; }
+	float GetWorldRadius();
 
 private:
-
 	float _radius;
-
-
-	shared_ptr<ColorBuffer> _colorBuffer;
-
-
-	shared_ptr<Transform> _transform;
-
-	vector<Vertex> _vertices;
-	shared_ptr<VertexBuffer> _vertexBuffer;
-
-	shared_ptr<VertexShader> _vs;
-	shared_ptr<PixelShader> _ps;
 };
 
