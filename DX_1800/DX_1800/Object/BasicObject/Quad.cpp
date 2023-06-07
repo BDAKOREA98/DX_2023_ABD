@@ -95,6 +95,7 @@ void Quad::CreateData(wstring path)
     _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
     
     _vs = make_shared<VertexShader>(L"Shader/TextureVS.hlsl");
+
 	_ps = make_shared<PixelShader>(L"Shader/TexturePS.hlsl");
 
    

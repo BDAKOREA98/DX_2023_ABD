@@ -74,6 +74,7 @@ using namespace Microsoft::WRL;
 
 // DUN
 #include "Object/Obj/DunGreed/DunBullet.h"
+#include "Object/Obj/DunGreed/DunBow.h"
 #include "Object/Obj/DunGreed/DunPlayer.h"
 // Scene
 #include "Scene/Scene.h"

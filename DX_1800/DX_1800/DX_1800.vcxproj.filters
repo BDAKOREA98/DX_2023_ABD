@@ -111,6 +111,12 @@
     <ClInclude Include="Framework\Collider\Collider.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\Math\Vector3.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Obj\DunGreed\DunBow.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1800.cpp">
@@ -194,6 +200,12 @@
     <ClCompile Include="Framework\Collider\Collider.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Math\Vector3.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Obj\DunGreed\DunBow.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1800.rc">
@@ -214,5 +226,6 @@
     <FxCompile Include="Shader\TexturePS.hlsl" />
     <FxCompile Include="Shader\ColliderVS.hlsl" />
     <FxCompile Include="Shader\ColliderPS.hlsl" />
+    <FxCompile Include="Shader\DunBow.hlsl" />
   </ItemGroup>
 </Project>

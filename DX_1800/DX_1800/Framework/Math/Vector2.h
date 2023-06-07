@@ -66,6 +66,12 @@ public:
 	bool operator!=(const Vector2& other) const;
 	bool operator<(const Vector2& other) const;
 
+	float Slope(const Vector2& other)const
+	{
+		float result =  (other.y - this->y) / (other.x - this->x);
+		
+		return result;
+	}
 	float Length()const
 	{
 		float result = sqrtf(x * x + y * y);
