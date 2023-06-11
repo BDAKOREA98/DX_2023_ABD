@@ -47,6 +47,13 @@ public:
 		return result = Vector2(this->x * value, this->y * value);
 	}
 
+	Vector2 operator*(const double& value)const
+	{
+		Vector2 result;
+		return result = Vector2(float(this->x * value), float(this->y * value));
+	}
+
+
 	Vector2& operator=(const Vector2& other)
 	{
 		x = other.x;
@@ -120,7 +127,6 @@ public:
 
 		x /= length;
 		y /= length;
-
 		
 	}
 

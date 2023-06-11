@@ -192,6 +192,11 @@ bool RectCollider::IsOBB(shared_ptr<CircleCollider> col)
 
     float VertexLength = (ea1 + eb1).Length();
 
+    if (isnan(VertexLength))
+    {
+        return false;
+    }
+
     if (aTOb.Length() > radius + VertexLength)
     {
         return false;

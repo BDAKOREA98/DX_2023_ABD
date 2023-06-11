@@ -49,6 +49,7 @@ using namespace Microsoft::WRL;
 #include "Framework/Math/Transform.h"
 
 // Utility
+#include "Framework/Utility/Timer.h"
 #include "Framework/Utility/InputManager.h"
 
 

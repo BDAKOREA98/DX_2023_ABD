@@ -32,6 +32,7 @@ Program::~Program()
 
 void Program::Update()
 {
+    Timer::GetInstance()->Update();
     InputManager::GetInstance()->Update();
 
     _curscene->Update();
@@ -57,7 +58,9 @@ void Program::Render()
 
 
 
-    ImGui::Text("test ImGui");
+    ImGui::Text("FPS : %d", FPS);
+    ImGui::Text("DeltaTime : %1f", DELTA_TIME);
+    ImGui::Text("RunTime : %1f", RUN_TIME);
     _curscene->PostRender();
     
 

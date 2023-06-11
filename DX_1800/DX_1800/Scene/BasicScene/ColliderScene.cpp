@@ -21,24 +21,44 @@ ColliderScene::~ColliderScene()
 void ColliderScene::Update()
 {
 	
+	if (KEY_PRESS('W'))
+	{
+		_rectcol->GetTransform()->AddVector2(UP_VECTOR * DELTA_TIME * 500.0f);
+	}
+	if (KEY_PRESS('S'))
+	{
+		_rectcol->GetTransform()->AddVector2(DOWN_VECTOR * DELTA_TIME * 500.0f);
+	}
+	if (KEY_PRESS('D'))
+	{
+		_rectcol->GetTransform()->AddVector2(RIGHT_VECTOR * DELTA_TIME * 500.0f);
+	}
+	if (KEY_PRESS('A'))
+	{
+		_rectcol->GetTransform()->AddVector2(LEFT_VECTOR * DELTA_TIME * 500.0f);
+	}
+
+
 	_rectcol->Update();
 	//_Circlecol->Update();
 	_rect->Update();
 	_Circle->Update();
 
-	if (_rectcol->IsOBB(_Circle))
+	if (_rectcol->IsOBB(_Circle) || _rectcol->IsOBB(_rect))
 	{
 		_Circle->SetRed();
 		_rectcol->SetRed();
+		_rect->SetBlue();
 	}
 	else
 	{
 		_Circle->SetGreen();
 		_rectcol->SetGreen();
+		_rect->SetGreen();
 	}
 
 
-	_rectcol->GetTransform()->SetPosition(_pos);
+	//_rectcol->GetTransform()->SetPosition(_pos);
 	_rectcol->GetTransform()->SetScale(_scale);
 	_rectcol->GetTransform()->SetAngle(_angle);
 
@@ -57,9 +77,9 @@ void ColliderScene::Render()
 
 void ColliderScene::PostRender()
 {
-	ImGui::SliderFloat2("Pos", (float*)&_pos, 0, WIN_WIDTH, "%.0f");
-	ImGui::SliderFloat2("Scale", (float*)&_scale, 0, 3, "%.1f");
-	ImGui::SliderFloat2("Angle", &_angle, 0, 2*PI, "%.3f");
-
+	//ImGui::SliderFloat2("Pos", (float*)&_pos, 0, WIN_WIDTH, "%.0f");
+	//ImGui::SliderFloat2("Scale", (float*)&_scale, 0, 3, "%.1f");
+	//ImGui::SliderFloat2("Angle", &_angle, 0, 2*PI, "%.3f");
+	//
 
 }
