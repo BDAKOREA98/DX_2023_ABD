@@ -107,16 +107,21 @@ public:
 	Vector2 NorMalVector2() const
 	{
 		Vector2 result;
-		result.x = x / Length();
-		result.y = y / Length();
+		float length = Length();
+		result.x = x / length;
+		result.y = y / length;
 
 		return result;
 	}
 
 	void Normalize()
 	{
-		x /= Length();
-		y /= Length();
+		float length = Length();
+
+		x /= length;
+		y /= length;
+
+		
 	}
 
 	bool IsBetween(Vector2 a, Vector2 b);
