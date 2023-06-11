@@ -8,7 +8,7 @@
 
 Program::Program()
 {
-	_curscene = make_shared<DunGreed>();
+	_curscene = make_shared<ColliderScene>();
 
     _view = make_shared<MatrixBuffer>();
     _proj = make_shared<MatrixBuffer>();
@@ -46,8 +46,24 @@ void Program::Render()
     _view->SetVS_Buffer(1);
     _proj->SetVS_Buffer(2);
 
+
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+
     ADDITIVE->SetState();
 	_curscene->Render();
+
+
+
+    ImGui::Text("test ImGui");
+    _curscene->PostRender();
+    
+
+
+    ImGui::Render();
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 	Device::GetInstance()->Present();
 

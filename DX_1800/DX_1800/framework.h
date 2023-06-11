@@ -27,8 +27,14 @@
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
-
+// DirectX Tex
 #include "../DxTex/DirectXTex.h"
+
+//Imgui
+#include "../Imgui/imgui.h"
+#include "../Imgui/imgui_impl_win32.h"
+#include "../Imgui/imgui_impl_dx11.h"
+
 
 using namespace std;
 using namespace DirectX;

@@ -3,7 +3,7 @@
 
 ColliderScene::ColliderScene()
 {
-	_rect = make_shared<RectCollider>(Vector2 (50.0f,50.0f));
+	_rect = make_shared<RectCollider>(Vector2 (50.0f,150.0f));
 	_rect->GetTransform()->SetPosition(CENTER);
 	_rectcol = make_shared<RectCollider>(Vector2 (50.0f,50.0f));
 	_rectcol->GetTransform()->SetPosition(CENTER + Vector2(-100.0f, 0.0f));
@@ -20,45 +20,29 @@ ColliderScene::~ColliderScene()
 
 void ColliderScene::Update()
 {
-	if (_rect->IsCollision(_rectcol))
+	
+
+
+	if (_rectcol->IsOBB(_rect))
 	{
 		_rect->SetRed();
-		_rectcol->SetBlue();
-	}
-	else if (_rect->IsCollision(_Circlecol))
-	{
-		_rect->SetRed();
-		_Circlecol->SetBlue();
-	}
-	else if (_Circle->IsCollision(_rectcol))
-	{
-		_Circle->SetWhite();
-		_rectcol->SetBlue();
-	}
-	else if (_Circle->IsCollision(_Circlecol))
-	{
-		_Circle->SetWhite();
-		_Circlecol->SetBlue();
+		_rectcol->SetRed();
 	}
 	else
 	{
 		_rect->SetGreen();
 		_rectcol->SetGreen();
-		_Circle->SetGreen();
-		_Circlecol->SetGreen();
 	}
 
-	
 
+	_rectcol->GetTransform()->SetPosition(_pos);
+	_rectcol->GetTransform()->SetScale(_scale);
+	_rectcol->GetTransform()->SetAngle(_angle);
 
 
 	_rectcol->Update();
 	_Circlecol->Update();
-	
-
-	_rect->GetTransform()->SetPosition(MOUSE_POS);
 	_rect->Update();
-	_Circle->GetTransform()->SetPosition(MOUSE_POS);
 	_Circle->Update();
 
 }
@@ -69,4 +53,13 @@ void ColliderScene::Render()
 	_Circle->Render();
 	_rectcol->Render();
 	_Circlecol->Render();
+}
+
+void ColliderScene::PostRender()
+{
+	ImGui::SliderFloat2("Pos", (float*)&_pos, 0, 1280, "%.0f");
+	ImGui::SliderFloat2("Scale", (float*)&_scale, 0, 3, "%.1f");
+	ImGui::SliderFloat2("Angle", &_angle, 0, 360, "%.1f");
+
+
 }
