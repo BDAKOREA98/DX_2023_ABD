@@ -6,12 +6,11 @@ ColliderScene::ColliderScene()
 	_rect = make_shared<RectCollider>(Vector2 (50.0f,150.0f));
 	_rect->GetTransform()->SetPosition(CENTER);
 	_rectcol = make_shared<RectCollider>(Vector2 (100.0f,100.0f));
-	_rectcol->GetTransform()->SetPosition(CENTER);
+	//_rectcol->GetTransform()->SetPosition(CENTER);
 	
 	_Circle = make_shared<CircleCollider>(50.0f);
 	_Circle->GetTransform()->SetPosition(CENTER);
-	//_Circlecol = make_shared<CircleCollider>(50.0f);
-	//_Circlecol->GetTransform()->SetPosition(CENTER);
+	_Circlecol = make_shared<CircleCollider>(100.0f);
 }
 
 ColliderScene::~ColliderScene()
@@ -20,7 +19,8 @@ ColliderScene::~ColliderScene()
 
 void ColliderScene::Update()
 {
-	
+	_Circlecol->GetTransform()->SetPosition(MOUSE_POS);
+
 	if (KEY_PRESS('W'))
 	{
 		_rectcol->GetTransform()->AddVector2(UP_VECTOR * DELTA_TIME * 500.0f);
@@ -40,15 +40,31 @@ void ColliderScene::Update()
 
 
 	_rectcol->Update();
-	//_Circlecol->Update();
+	_Circlecol->Update();
 	_rect->Update();
 	_Circle->Update();
 
-	if (_rectcol->IsOBB(_Circle) || _rectcol->IsOBB(_rect))
+	_Circlecol->Block(_Circle);
+	_rectcol->Block(_rect);
+
+
+	if (_rectcol->IsOBB(_Circle) && _rectcol->IsOBB(_rect))
 	{
-		_Circle->SetRed();
+		_Circle->SetWhite();
+		_rectcol->SetWhite();
+		_rect->SetWhite();
+	}
+	else if (_rectcol->IsOBB(_rect))
+	{
 		_rectcol->SetRed();
-		_rect->SetBlue();
+		_rect->SetRed();
+		_Circle->SetGreen();
+	}
+	else if (_rectcol->IsOBB(_Circle))
+	{
+		_rectcol->SetBlue();
+		_Circle->SetBlue();
+		_rect->SetGreen();
 	}
 	else
 	{
@@ -72,7 +88,7 @@ void ColliderScene::Render()
 	_rect->Render();
 	_Circle->Render();
 	_rectcol->Render();
-	//_Circlecol->Render();
+	_Circlecol->Render();
 }
 
 void ColliderScene::PostRender()

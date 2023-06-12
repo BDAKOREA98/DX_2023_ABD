@@ -35,6 +35,7 @@ public:
 	bool IsOBB(shared_ptr<CircleCollider> col);
 	float SeperateAxis(Vector2 separate, Vector2 e1, Vector2 e2);
 
+	bool Block(shared_ptr<RectCollider> col);
 
 	void SetScale(Vector2 scale);
 
