@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Obj\DunGreed\DunMob.h" />
     <ClInclude Include="Object\Obj\DunGreed\DunBow.h" />
     <ClInclude Include="Framework\Collider\Collider.h" />
     <ClInclude Include="Framework\Collider\CircleCollider.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\BasicScene\SolarSystem.h" />
     <ClInclude Include="Framework\TextureMapping\StateManager.h" />
+    <ClInclude Include="Framework\TextureMapping\SRVManager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Scene\BasicScene\TutorialScene.h" />
     <ClInclude Include="Framework\Math\Transform.h" />
@@ -188,6 +190,7 @@
     <ClInclude Include="Framework\Math\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Obj\DunGreed\DunMob.cpp" />
     <ClCompile Include="Object\Obj\DunGreed\DunBow.cpp" />
     <ClCompile Include="Framework\Collider\Collider.cpp" />
     <ClCompile Include="Framework\Collider\CircleCollider.cpp" />
@@ -227,6 +230,7 @@
     <ClCompile Include="Framework\TextureMapping\StateManager.cpp" />
     <ClCompile Include="Framework\Math\Vector3.cpp" />
     <ClCompile Include="Framework\Utility\Timer.cpp" />
+    <ClCompile Include="Framework\TextureMapping\SRVManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1800.rc" />

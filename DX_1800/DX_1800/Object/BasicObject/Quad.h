@@ -4,6 +4,7 @@ class Quad
 public:
 
 	Quad(wstring path);
+	Quad(wstring path, Vector2 size);
 	~Quad();
 
 	void Update();
@@ -12,6 +13,7 @@ public:
 
 	void CreateVertices();
 	void CreateData(wstring path);
+	shared_ptr<PixelShader> ChangePS(wstring file) { _ps = make_shared<PixelShader>(file); }
 
 	shared_ptr<Transform> GetTransform() { return _transform; }
 
@@ -38,6 +40,7 @@ private:
 	// material ==  오브젝트 표면의 질감 등등 -> vs, ps, srv, sampler 
 	shared_ptr<Transform> _transform;
 
+	Vector2 _size;
 
 };
 

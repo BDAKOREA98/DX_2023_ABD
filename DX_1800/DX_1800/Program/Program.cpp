@@ -8,7 +8,7 @@
 
 Program::Program()
 {
-	_curscene = make_shared<ColliderScene>();
+	_curscene = make_shared<DunGreed>();
 
     _view = make_shared<MatrixBuffer>();
     _proj = make_shared<MatrixBuffer>();

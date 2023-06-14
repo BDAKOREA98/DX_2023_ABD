@@ -6,6 +6,7 @@ DunPlayer::DunPlayer()
 	_player = make_shared<Quad>(L"Resource/Texture/Player.png");
 	_bowTrans = make_shared<Transform>();
 	_bow = make_shared<DunBow>(L"Resource/Texture/bow.png");
+	
 	_bulletTrans = make_shared<Transform>();
 	
 

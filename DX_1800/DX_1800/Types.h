@@ -22,6 +22,9 @@
 #define BLEND		StateManager::GetInstance()->GetBlend()
 #define SAMPLER		StateManager::GetInstance()->GetSampler()
 
+
+
+
 #define KEY_UP(k)		InputManager::GetInstance()->Up(k)
 #define KEY_DOWN(k)		InputManager::GetInstance()->Down(k)
 #define KEY_PRESS(k)	InputManager::GetInstance()->Press(k)
@@ -30,8 +33,9 @@
 
 #define DELTA_TIME		Timer::GetInstance()->GetDeltaTime()
 #define RUN_TIME		Timer::GetInstance()->GetRunTime()
-#define FPS		Timer::GetInstance()->GetFPS()
+#define FPS				Timer::GetInstance()->GetFPS()
 
+#define ADD_SRV(k)		SRVManager::GetInstance()->AddSRV(k)
 
 #define LERP(s,e,t) s + (e - s)*t
 #define PI 3.141592
