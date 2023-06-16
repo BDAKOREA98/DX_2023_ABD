@@ -33,7 +33,7 @@ public:
 private:
 
 
-	Vector2 _pos;
+	Vector2 _pos = { 0.0f,0.0f };
 	Vector2 _scale = {1.0f,1.0f};
 
 	float _angle = 0.0f;

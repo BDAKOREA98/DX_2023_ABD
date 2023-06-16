@@ -13,7 +13,7 @@ public:
 	void CreateVertices();
 	void CreateData(wstring path);
 
-	shared_ptr<Transform> GetTransform() { return _transform; }
+	
 
 private:
 
@@ -29,8 +29,6 @@ private:
 	shared_ptr<PixelShader> _ps;
 
 	shared_ptr<SRV> _srv;
-	shared_ptr<Transform> _transform;
-
 
 };
 

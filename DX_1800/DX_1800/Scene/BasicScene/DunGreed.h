@@ -10,7 +10,12 @@ public:
 
 private:
 	shared_ptr<DunPlayer> _player;
-	shared_ptr<Planet> _chaewon;
+	shared_ptr<Transform> _playertrans;
+
+	
+
+	
+	//shared_ptr<Transform> _mobtrans;
 
 };
 

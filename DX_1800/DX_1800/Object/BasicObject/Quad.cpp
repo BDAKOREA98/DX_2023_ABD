@@ -11,7 +11,7 @@ Quad::Quad(wstring path)
 	CreateVertices();
 	CreateData(path);
 
-    _transform = make_shared<Transform>();
+   
 	
 }
 
@@ -23,7 +23,7 @@ Quad::Quad(wstring path, Vector2 size)
     CreateVertices();
     CreateData(path);
 
-    _transform = make_shared<Transform>();
+    
     
 }
 
@@ -33,13 +33,12 @@ Quad::~Quad()
 
 void Quad::Update()
 {
-    _transform->Update();
+   
 }
 
 void Quad::Render()
 {
-    _transform->SetWorldBuffer(0);
-    
+   
     _vertexBuffer->SetIA_VertexBuffer();
     _indexBuffer->SetIA_IndexBuffer();
 

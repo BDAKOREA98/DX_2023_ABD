@@ -4,8 +4,12 @@
 DunBullet::DunBullet()
 {
 	_quad = make_shared<Quad>(L"Resource/Texture/Bullet.png");
-	_quad->GetTransform()->SetScale(Vector2(0.05f, 0.05f));
-	_quad->GetTransform()->SetPosition(Vector2(-100.0f, -100.0f));
+	_quadtrans = make_shared<Transform>();
+	_quadtrans->SetScale(Vector2(0.05f, 0.05f));
+	//_quadtrans->SetPosition(Vector2(-100.0f, -100.0f));
+
+	_col = make_shared<CircleCollider>(200.0f);
+	_col->GetTransform()->SetParent(_quadtrans);
 }
 
 DunBullet::~DunBullet()
@@ -23,9 +27,11 @@ void DunBullet::Update()
 		_isActive = false;
 
 	_pos += _dir * _speed;
-	_quad->GetTransform()->SetPosition(_pos);
-	_quad->GetTransform()->SetAngle(_dir.Angle());
+	_quadtrans->SetPosition(_pos);
+	_quadtrans->SetAngle(_dir.Angle());
 	_quad->Update();
+	_quadtrans->Update();
+	_col->Update();
 }
 
 void DunBullet::Render()
@@ -33,5 +39,7 @@ void DunBullet::Render()
 	if (_isActive == false)
 		return;
 
+	_quadtrans->SetWorldBuffer(0);
 	_quad->Render();
+	_col->Render();
 }

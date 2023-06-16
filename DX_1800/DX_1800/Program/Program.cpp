@@ -5,6 +5,7 @@
 #include "../Scene/BasicScene/SolarSystem.h"
 #include "../Scene/BasicScene/DunGreed.h"
 #include "../Scene/BasicScene/ColliderScene.h"
+#include "../Scene/BasicScene/SpriteScene.h"
 
 Program::Program()
 {

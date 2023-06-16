@@ -4,9 +4,10 @@
 TutorialScene::TutorialScene()
 {
     _qurd = make_shared<Quad>(L"Resource/Texture/chaewon.png");
-
-    _qurd->GetTransform()->SetPosition(CENTER);
-    _qurd->GetTransform()->SetScale(Vector2(0.7f,0.7f));
+   
+    _trans = make_shared<Transform>();
+   _trans->SetPosition(CENTER);
+    _trans->SetScale(Vector2(0.7f,0.7f));
 }
 
 TutorialScene::~TutorialScene()
@@ -18,44 +19,44 @@ void TutorialScene::Update()
   //사진 이동하기
     if (GetAsyncKeyState('D'))
     {
-        _qurd->GetTransform()->AddVector2(Vector2(0.1f, 0.0f));
-        _qurd->GetTransform()->Update();
+        _trans->AddVector2(Vector2(0.1f, 0.0f));
+        _trans->Update();
     }
     if (GetAsyncKeyState('A'))
     {
-        _qurd->GetTransform()->AddVector2(Vector2(-0.1f, 0.0f));
-        _qurd->GetTransform()->Update();
+        _trans->AddVector2(Vector2(-0.1f, 0.0f));
+        _trans->Update();
     }
     if (GetAsyncKeyState('W'))
     {
-        _qurd->GetTransform()->AddVector2(Vector2(0.0f, 0.1f));
-        _qurd->GetTransform()->Update();
+        _trans->AddVector2(Vector2(0.0f, 0.1f));
+        _trans->Update();
     }
     if (GetAsyncKeyState('S'))
     {
-        _qurd->GetTransform()->AddVector2(Vector2(0.0f, -0.1f));
-        _qurd->GetTransform()->Update();
+        _trans->AddVector2(Vector2(0.0f, -0.1f));
+        _trans->Update();
     }
   
     if (GetAsyncKeyState('O'))
     {
-        _qurd->GetTransform()->AddSclae(Vector2(0.005f, 0.005f));
-        _qurd->GetTransform()->Update();
+        _trans->AddSclae(Vector2(0.005f, 0.005f));
+        _trans->Update();
     }
     if (GetAsyncKeyState('P'))
     {
-        _qurd->GetTransform()->AddSclae(Vector2(-0.005f, -0.005f));
-        _qurd->GetTransform()->Update();
+        _trans->AddSclae(Vector2(-0.005f, -0.005f));
+        _trans->Update();
     }
     if (GetAsyncKeyState('Q'))
     {
-        _qurd->GetTransform()->AddAngle(0.005f);
-        _qurd->GetTransform()->Update();
+        _trans->AddAngle(0.005f);
+        _trans->Update();
     }
     if (GetAsyncKeyState('E'))
     {
-        _qurd->GetTransform()->AddAngle(-0.005f);
-        _qurd->GetTransform()->Update();
+        _trans->AddAngle(-0.005f);
+        _trans->Update();
     }
     
    
@@ -63,7 +64,7 @@ void TutorialScene::Update()
 
  
     _qurd->Update();
-
+    _trans->Update();
 
 }
 
@@ -73,6 +74,6 @@ void TutorialScene::Render()
   
 
     _qurd->Render();
-
+    _trans->SetWorldBuffer(0);
 
 }

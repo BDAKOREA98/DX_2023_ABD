@@ -4,10 +4,14 @@
 DunGreed::DunGreed()
 {
 	_player = make_shared<DunPlayer>();
+	_playertrans = make_shared<Transform>();
 
-	_chaewon = make_shared<Planet>(L"chaewon");
-	_chaewon->SetPosition(CENTER);
-	_chaewon->SetScale(Vector2(0.3f, 0.3f));
+	
+	
+
+	
+	
+	
 
 }
 
@@ -18,13 +22,23 @@ DunGreed::~DunGreed()
 
 void DunGreed::Update()
 {
+	
+	
+
+	
 	_player->Update();
-	_chaewon->SetPosition(MOUSE_POS);
-	_chaewon->Update();
+	_playertrans->Update();
+	
+	
+	
+
+	
 }
 
 void DunGreed::Render()
 {
+	_playertrans->SetWorldBuffer(0);
 	_player->Render();
-	_chaewon->Render();
+	
+	
 }

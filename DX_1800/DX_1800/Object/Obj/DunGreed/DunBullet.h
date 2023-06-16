@@ -14,10 +14,13 @@ public:
 	void SetActive(bool active) { _isActive = active; }
 	bool IsActive() { return _isActive; }
 
-	shared_ptr<Transform> GetTrans() { return _quad->GetTransform(); }
+	shared_ptr<Transform> GetTrans() { return _quadtrans; }
+	shared_ptr<CircleCollider> GetCol() { return _col; }
 
 private:
 	shared_ptr<Quad> _quad;
+	shared_ptr<Transform> _quadtrans;
+	shared_ptr<CircleCollider> _col;
 
 	Vector2 _pos = Vector2();
 	Vector2 _dir = Vector2();

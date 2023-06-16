@@ -1,31 +1,39 @@
 #include "framework.h"
 #include "DunPlayer.h"
 
+
 DunPlayer::DunPlayer()
 {
 	_player = make_shared<Quad>(L"Resource/Texture/Player.png");
+	_playertrans = make_shared<Transform>();
+	_playertrans->SetPosition(Vector2(100.0f, 100.0f));
+
+	
+	_bowslot = make_shared<Transform>();
+	_bowslot->SetParent(_playertrans);
+	_bowslot->SetPosition(Vector2(0.0f, 0.0f));
+	
 	_bowTrans = make_shared<Transform>();
+	_bowTrans->SetParent(_bowslot);
+	_bowTrans->SetPosition(Vector2(100.0f, 0.0f));
+	_bowTrans->SetAngle(-PI* 0.75);
+	
 	_bow = make_shared<DunBow>(L"Resource/Texture/bow.png");
 	
 	_bulletTrans = make_shared<Transform>();
+	_bulletTrans->SetParent(_bowTrans);
+		
 	
-
 	for (int i = 0; i < 10; i++)
 	{
 		shared_ptr<DunBullet> bullet = make_shared<DunBullet>();
 		bullet->SetActive(false);
+		bullet->SetPos(_bowslot->GetPos());
 		_bullets.push_back(bullet);
 	}
 
-	_player->GetTransform()->SetPosition(Vector2(80.0f, 80.0f));
-	_bowTrans->SetParent(_player->GetTransform());
-
-	_bow->GetTransform()->SetAngle(-PI * 0.75f);
-	_bow->GetTransform()->SetPosition(Vector2(80.0f, 0.0f));
-	_bow->GetTransform()->SetParent(_bowTrans);
-
-	_bulletTrans->SetParent(_bowTrans);
-	_bulletTrans->SetPosition(Vector2(120.0f, 0.0f));
+	_mob = make_shared<DunMob>();
+	
 }
 
 DunPlayer::~DunPlayer()
@@ -34,26 +42,47 @@ DunPlayer::~DunPlayer()
 
 void DunPlayer::Update()
 {
-	_bowTrans->SetAngle((MOUSE_POS - _bowTrans->GetWorldPos()).Angle());
-
-	Fire();
-	Move();
-	_player->Update();
+	_bowslot->SetAngle((MOUSE_POS - _bowTrans->GetWorldPos()).Angle());
+	_bowslot->Update();
 	_bowTrans->Update();
 	_bow->Update();
 	_bulletTrans->Update();
+	_mob->Update();
+
+
+	Move();
+
 
 	for (auto bullet : _bullets)
+	{
+		
 		bullet->Update();
+	}
+
+	
+	Attack();
+
+	Fire();
+	_player->Update();
+	_playertrans->Update();
+	
 }
 
 void DunPlayer::Render()
 {
-	for (auto bullet : _bullets)
-		bullet->Render();
-	_bow->Render();
+	_playertrans->SetWorldBuffer(0);
 	_player->Render();
-}
+	_bowTrans->SetWorldBuffer(0);
+	_bow->Render();
+	_mob->Render();
+
+	_bulletTrans->SetWorldBuffer(0);
+	for (auto bullet : _bullets)
+	{
+		bullet->Render();
+	}
+
+	}
 
 void DunPlayer::Fire()
 {
@@ -100,21 +129,34 @@ void DunPlayer::Move()
 {
 	if (KEY_PRESS('D'))
 	{
-		_player->GetTransform()->AddVector2(Vector2(0.2f, 0.0f));
+		_playertrans->AddVector2(Vector2(0.2f, 0.0f));
 	}
 	if (KEY_PRESS('A'))
 	{
-		_player->GetTransform()->AddVector2(Vector2(-0.2f, 0.0f));
+		_playertrans->AddVector2(Vector2(-0.2f, 0.0f));
 	}
 	if (KEY_PRESS('W'))
 	{
-		_player->GetTransform()->AddVector2(Vector2(0.0f, 0.2f));
+		_playertrans->AddVector2(Vector2(0.0f, 0.2f));
 	}
 	if (KEY_PRESS('S'))
 	{
-		_player->GetTransform()->AddVector2(Vector2(0.0f, -0.2f));
+		_playertrans->AddVector2(Vector2(0.0f, -0.2f));
 	}
 
 
 
+}
+
+void DunPlayer::Attack()
+{
+	for (auto bullet : _bullets)
+	{
+		if (_mob->GetCollider()->IsCollision(bullet->GetCol()))
+		{
+			_mob->TakeDamage(1);
+			bullet->SetActive(false);
+			bullet->SetPos(Vector2 (0, 0));
+		}
+	}
 }

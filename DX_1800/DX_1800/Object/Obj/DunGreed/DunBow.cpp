@@ -7,8 +7,6 @@ DunBow::DunBow(wstring path)
 
 	CreateVertices();
 	CreateData(path);
-
-	_transform = make_shared<Transform>();
 }
 
 DunBow::~DunBow()
@@ -17,12 +15,11 @@ DunBow::~DunBow()
 
 void DunBow::Update()
 {
-	_transform->Update();
+	
 }
 
 void DunBow::Render()
 {
-    _transform->SetWorldBuffer(0);
 
     _vertexBuffer->SetIA_VertexBuffer();
     _indexBuffer->SetIA_IndexBuffer();

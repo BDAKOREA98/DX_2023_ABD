@@ -16,6 +16,8 @@ private:
 	
 
 	shared_ptr<Quad> _qurd;
+	shared_ptr<Transform> _trans;
+
 
 
 

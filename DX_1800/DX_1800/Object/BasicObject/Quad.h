@@ -15,7 +15,7 @@ public:
 	void CreateData(wstring path);
 	shared_ptr<PixelShader> ChangePS(wstring file) { _ps = make_shared<PixelShader>(file); }
 
-	shared_ptr<Transform> GetTransform() { return _transform; }
+	
 
 private:
 
@@ -38,7 +38,7 @@ private:
 	// ex) 쿼드가 트랜스폼을 들고있으므로 변형이 가능해짐
 	// mash == 정점들의 모임 -> vretices, indices, vertexbuffer, indexbuffr
 	// material ==  오브젝트 표면의 질감 등등 -> vs, ps, srv, sampler 
-	shared_ptr<Transform> _transform;
+	
 
 	Vector2 _size;
 
