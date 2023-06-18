@@ -20,6 +20,7 @@
 #include <string>
 #include <wrl/client.h> // 스마트포인터 사용을 위함
 #include <functional> // 객체없이 함수포인터 사용을 위함
+#include <time.h>
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
