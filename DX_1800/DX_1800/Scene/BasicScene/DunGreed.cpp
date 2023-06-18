@@ -28,8 +28,7 @@ void DunGreed::Update()
 	
 	_player->Update();
 	_playertrans->Update();
-	
-	
+
 	
 
 	
@@ -40,5 +39,12 @@ void DunGreed::Render()
 	_playertrans->SetWorldBuffer(0);
 	_player->Render();
 	
-	
+
 }
+
+void DunGreed::PostRender()
+{
+	ImGui::Text("Monster HP : %d", _player->GetMob()->GetHP());
+
+}
+

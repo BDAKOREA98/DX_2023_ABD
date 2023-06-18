@@ -9,9 +9,9 @@ public:
 	void Update_WorldBuffer();
 	void Update_SRT();
 
-	void SetPosition(Vector2 pos) { _pos = pos; }
-	void SetScale(Vector2 sclae) { _scale = sclae; }
-	void SetAngle(float angle) { _angle = angle; }
+	void SetPosition(Vector2 pos) { _pos = pos; Update_SRT(); }
+	void SetScale(Vector2 sclae) { _scale = sclae; Update_SRT();}
+	void SetAngle(float angle) { _angle = angle; Update_SRT();}
 	void SetWorldBuffer(UINT slot);
 
 	void AddVector2(Vector2 pos) { _pos += pos; }

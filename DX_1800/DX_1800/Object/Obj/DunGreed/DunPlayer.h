@@ -8,8 +8,6 @@ public:
 	void Update();
 	void Render();
 
-	
-
 
 	void Fire();
 	shared_ptr<DunBullet> SetBullet();
@@ -17,7 +15,8 @@ public:
 	void Move();
 	void Attack();
 
-
+	vector<shared_ptr<class DunBullet>>& GetBullet() {return _bullets;}
+	shared_ptr<class DunMob> GetMob() { return _mob; }
 private:
 	shared_ptr<Quad> _player;
 	shared_ptr<Transform> _playertrans;

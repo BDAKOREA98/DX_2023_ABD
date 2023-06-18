@@ -13,6 +13,7 @@ public:
 
 	void SetActive(bool active) { _isActive = active; }
 	bool IsActive() { return _isActive; }
+	bool _isActive = false;
 
 	shared_ptr<Transform> GetTrans() { return _quadtrans; }
 	shared_ptr<CircleCollider> GetCol() { return _col; }
@@ -26,6 +27,5 @@ private:
 	Vector2 _dir = Vector2();
 	float _speed = 0.90f;
 
-	bool _isActive = false;
 };
 

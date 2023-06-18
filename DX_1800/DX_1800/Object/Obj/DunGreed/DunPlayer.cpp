@@ -42,13 +42,6 @@ DunPlayer::~DunPlayer()
 
 void DunPlayer::Update()
 {
-	_bowslot->SetAngle((MOUSE_POS - _bowTrans->GetWorldPos()).Angle());
-	_bowslot->Update();
-	_bowTrans->Update();
-	_bow->Update();
-	_bulletTrans->Update();
-	_mob->Update();
-
 
 	Move();
 
@@ -63,6 +56,13 @@ void DunPlayer::Update()
 	Attack();
 
 	Fire();
+	_bowslot->SetAngle((MOUSE_POS - _bowTrans->GetWorldPos()).Angle());
+	_bowslot->Update();
+	_bowTrans->Update();
+	_bow->Update();
+	_bulletTrans->Update();
+	_mob->Update();
+
 	_player->Update();
 	_playertrans->Update();
 	
@@ -75,14 +75,14 @@ void DunPlayer::Render()
 	_bowTrans->SetWorldBuffer(0);
 	_bow->Render();
 	_mob->Render();
-
 	_bulletTrans->SetWorldBuffer(0);
 	for (auto bullet : _bullets)
 	{
 		bullet->Render();
 	}
 
-	}
+
+}
 
 void DunPlayer::Fire()
 {
@@ -150,13 +150,20 @@ void DunPlayer::Move()
 
 void DunPlayer::Attack()
 {
-	for (auto bullet : _bullets)
+	if (_mob->IsActive() == true)
 	{
-		if (_mob->GetCollider()->IsCollision(bullet->GetCol()))
+		for (auto bullet : _bullets)
 		{
-			_mob->TakeDamage(1);
-			bullet->SetActive(false);
-			bullet->SetPos(Vector2 (0, 0));
+			if (bullet->IsActive() == false)
+			{
+				continue;
+			}
+			if (bullet->GetCol()->IsCollision(_mob->GetCollider()))
+			{
+				_mob->TakeDamage(1);
+				bullet->_isActive = false;
+
+			}
 		}
 	}
 }
