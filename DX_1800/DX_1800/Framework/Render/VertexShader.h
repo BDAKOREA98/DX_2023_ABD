@@ -1,5 +1,5 @@
 #pragma once
-class VertexShader
+class VertexShader : public Shader
 {
 public:
 		VertexShader(wstring path);
@@ -10,15 +10,14 @@ public:
 		void CreateVertexShader();
 
 		void SetIAInputLayout();
-		void Set_VS();
+		virtual void Set() override;
 
 		
 
 private:
-	ComPtr<ID3DBlob> vertexBlob;
 
-	ComPtr<ID3D11VertexShader> vertexShader;
-	ComPtr<ID3D11InputLayout> inputLayout;
+	ComPtr<ID3D11VertexShader> _vs;
+	ComPtr<ID3D11InputLayout> _inputLayout;
 
 
 };

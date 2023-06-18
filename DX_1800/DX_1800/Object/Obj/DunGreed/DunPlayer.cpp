@@ -24,7 +24,7 @@ DunPlayer::DunPlayer()
 	_bulletTrans->SetParent(_bowTrans);
 		
 	
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		shared_ptr<DunBullet> bullet = make_shared<DunBullet>();
 		bullet->SetActive(false);

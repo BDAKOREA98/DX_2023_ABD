@@ -50,8 +50,8 @@ void Quad::Render()
     _srv->SetSRV(0);
     SAMPLER->SetSampler();
 
-    _vs->Set_VS();
-    _ps->Set_PS();
+    _vs->Set();
+    _ps->Set();
 
     DC->DrawIndexed(_indices.size(), 0, 0);
 

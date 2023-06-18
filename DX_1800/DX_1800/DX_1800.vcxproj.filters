@@ -132,6 +132,9 @@
     <ClInclude Include="Object\BasicObject\Sprite.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\Render\Shader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1800.cpp">
@@ -236,6 +239,9 @@
     <ClCompile Include="Object\BasicObject\Sprite.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Render\Shader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1800.rc">
@@ -257,5 +263,6 @@
     <FxCompile Include="Shader\ColliderVS.hlsl" />
     <FxCompile Include="Shader\ColliderPS.hlsl" />
     <FxCompile Include="Shader\DunBow.hlsl" />
+    <FxCompile Include="Shader\SpritePS.hlsl" />
   </ItemGroup>
 </Project>

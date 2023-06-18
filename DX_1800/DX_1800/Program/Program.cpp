@@ -9,7 +9,7 @@
 
 Program::Program()
 {
-	_curscene = make_shared<DunGreed>();
+	_curscene = make_shared<SpriteScene>();
 
     _view = make_shared<MatrixBuffer>();
     _proj = make_shared<MatrixBuffer>();

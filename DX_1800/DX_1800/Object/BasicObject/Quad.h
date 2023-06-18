@@ -1,23 +1,26 @@
 #pragma once
 class Quad
 {
+protected:
+	Quad() {}
 public:
 
 	Quad(wstring path);
 	Quad(wstring path, Vector2 size);
-	~Quad();
+	virtual ~Quad();
 
-	void Update();
-	void Render();
+	virtual void Update();
+	virtual void Render();
 
 
-	void CreateVertices();
-	void CreateData(wstring path);
+	virtual void CreateVertices();
+	virtual void CreateData(wstring path);
+
 	shared_ptr<PixelShader> ChangePS(wstring file) { _ps = make_shared<PixelShader>(file); }
 
 	
 
-private:
+protected:
 
 
 	vector<Vertex_Texture> _vertices;
