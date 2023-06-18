@@ -183,6 +183,9 @@
     <ClInclude Include="Scene\BasicScene\SpriteScene.h" />
     <ClInclude Include="Object\BasicObject\Sprite.h" />
     <ClInclude Include="Framework\Render\Shader.h" />
+    <ClInclude Include="Object\BasicObject\Sprite_Clip.h" />
+    <ClInclude Include="Object\BasicObject\Sprite_Frame.h" />
+    <ClInclude Include="Framework\Render\ShaderManager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Scene\BasicScene\TutorialScene.h" />
     <ClInclude Include="Framework\Math\Transform.h" />
@@ -239,6 +242,9 @@
     <ClCompile Include="Scene\BasicScene\SpriteScene.cpp" />
     <ClCompile Include="Object\BasicObject\Sprite.cpp" />
     <ClCompile Include="Framework\Render\Shader.cpp" />
+    <ClCompile Include="Object\BasicObject\Sprite_Clip.cpp" />
+    <ClCompile Include="Object\BasicObject\Sprite_Frame.cpp" />
+    <ClCompile Include="Framework\Render\ShaderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1800.rc" />
@@ -248,6 +254,20 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shader\ActionPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="Shader\ColliderPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

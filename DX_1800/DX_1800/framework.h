@@ -62,6 +62,7 @@ using namespace Microsoft::WRL;
 #include "Framework/Render/Shader.h"
 #include "Framework/Render/VertexShader.h"
 #include "Framework/Render/PixelShader.h"
+#include "Framework//Render/ShaderManager.h"
 
 // TextureMapping
 #include "Framework/TextureMapping/SRV.h"
@@ -77,6 +78,8 @@ using namespace Microsoft::WRL;
 // Object
 #include "Object/BasicObject/Quad.h"
 #include "Object/BasicObject/Sprite.h"
+#include "Object/BasicObject/Sprite_Clip.h"
+#include "Object/BasicObject/Sprite_Frame.h"
 
 // Collider
 #include "Framework/Collider/Collider.h"

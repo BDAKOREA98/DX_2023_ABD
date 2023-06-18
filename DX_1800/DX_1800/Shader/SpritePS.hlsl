@@ -20,18 +20,9 @@ float4 PS(PixelInput input) : SV_TARGET
 {
 	float2 resultUV;
 	
-		// cur == (0,1)
-		// maxFrmae = (10,8)
-		// input = (0,0)
-		// reusltUV.x = 0
-		// reusltUV.y = 1/8
-						// 0 /  10+0 / 10 == 0 / 10 + 0 / 10 
-						// 0 /  8 + 1 / 8 == 0 / 8 + 1/ 8 == 1/8
-						// resultUV.x = 0
-						// resultUV.y = 1/8
-						// 
-	resultUV.x = input.uv.x  / maxFrame.x + curFrame.x / maxFrame.x;
+		resultUV.x = input.uv.x  / maxFrame.x + curFrame.x / maxFrame.x;
 	resultUV.y = input.uv.y / maxFrame.y + curFrame.y / maxFrame.y;
 
-	return resource.Sample(samp, resultUV);
+	float4 color = resource.Sample(samp, resultUV);
+	return color;
 }

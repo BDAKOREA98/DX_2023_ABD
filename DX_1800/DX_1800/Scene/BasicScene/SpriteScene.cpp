@@ -5,10 +5,11 @@
 SpriteScene::SpriteScene()
 {
 	CreateAction();
-	_sprite = make_shared<Sprite>(L"Resource/Sprite/zelda.png", Vector2(10, 8), Vector2(150,150));
+	_sprite = make_shared<Sprite_Clip>(L"Resource/Sprite/zelda.png", Vector2(150,150));
 	_trans = make_shared<Transform>();
 	_trans->SetPosition(CENTER);
-	_sprite->SetCurFrame(Vector2(0, 1));
+
+
 }
 
 SpriteScene::~SpriteScene()
@@ -19,7 +20,7 @@ void SpriteScene::Update()
 {
 	_trans->Update();
 	_action->Update(); 
-	_sprite->SetCurFrame(_action->GetCurClip());
+	_sprite->SetCurClip(_action->GetCurClip());
 	_sprite	->Update();
 }
 

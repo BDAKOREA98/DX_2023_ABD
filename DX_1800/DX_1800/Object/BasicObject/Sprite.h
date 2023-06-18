@@ -2,29 +2,24 @@
 class Action;
 class Sprite : public Quad
 {
+protected:
 
-public:
-	Sprite(wstring path , Vector2 maxFrame);
-	Sprite(wstring path , Vector2 maxFrame, Vector2 size);
+	Sprite(wstring path);
+	Sprite(wstring path, Vector2 size);
 	virtual ~Sprite();
 
+public:
 	virtual void Update() override;
 	virtual void Render() override;
 
 	virtual void CreateVertices() override;
 	virtual void CreateData(wstring path) override;
 
-	void SetCurFrame(Vector2 frame) { _frameBuffer->_data.curFrame = frame; }
-	void SetCurFrame(Action::Clip clip);
+	
 
+protected:
 
-private:
-
-	shared_ptr<FrameBuffer> _frameBuffer;
-
-	Vector2 _maxFrame;
-
-
+	shared_ptr<ActionBuffer> _actionBuffer;
 
 };
 

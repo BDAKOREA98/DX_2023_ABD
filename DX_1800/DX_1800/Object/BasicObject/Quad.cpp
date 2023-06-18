@@ -6,7 +6,7 @@
 Quad::Quad(wstring path)
 {
     _srv = ADD_SRV(path);
-    _size = _srv->GetImageze();
+    _size = _srv.lock()->GetImageze();
 
 	CreateVertices();
 	CreateData(path);
@@ -43,15 +43,15 @@ void Quad::Render()
     _indexBuffer->SetIA_IndexBuffer();
 
 
-    _vs->SetIAInputLayout();
+    _vs.lock()->SetIAInputLayout();
 
     DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    _srv->SetSRV(0);
+    _srv.lock()->SetSRV(0);
     SAMPLER->SetSampler();
 
-    _vs->Set();
-    _ps->Set();
+    _vs.lock()->Set();
+    _ps.lock()->Set();
 
     DC->DrawIndexed(_indices.size(), 0, 0);
 
@@ -105,9 +105,9 @@ void Quad::CreateData(wstring path)
 	_vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex_Texture), _vertices.size());
     _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
     
-    _vs = make_shared<VertexShader>(L"Shader/TextureVS.hlsl");
+    _vs = ADD_VS(L"Shader/TextureVs.hlsl");
 
-	_ps = make_shared<PixelShader>(L"Shader/TexturePS.hlsl");
+    _ps = ADD_PS(L"Shader/TexturePs.hlsl");
 
    
 
