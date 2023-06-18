@@ -19,7 +19,7 @@
 #include <unordered_map>
 #include <string>
 #include <wrl/client.h> // 스마트포인터 사용을 위함
-
+#include <functional> // 객체없이 함수포인터 사용을 위함
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -70,6 +70,10 @@ using namespace Microsoft::WRL;
 #include "Framework/TextureMapping//BlendState.h"
 #include "Framework/TextureMapping//StateManager.h"
 
+
+//Action
+#include "Framework/Animation/Action.h"
+
 // Object
 #include "Object/BasicObject/Quad.h"
 #include "Object/BasicObject/Sprite.h"
@@ -78,6 +82,7 @@ using namespace Microsoft::WRL;
 #include "Framework/Collider/Collider.h"
 #include "Framework/Collider/RectCollider.h"
 #include "Framework/Collider/CircleCollider.h"
+
 
 // Obj
 #include "Object/Obj/Planet.h"
@@ -93,7 +98,7 @@ using namespace Microsoft::WRL;
 
 // Program
 #include "Program/Program.h"
-
 #include "Types.h"
+
 
 extern HWND hWnd;

@@ -101,3 +101,10 @@ void Sprite::CreateData(wstring path)
 
     
 }
+
+void Sprite::SetCurFrame(Action::Clip clip)
+{
+    _frameBuffer->_data.curFrame.x = clip.startPos.x / clip.size.x;
+    _frameBuffer->_data.curFrame.y = clip.startPos.y / clip.size.y;
+}
+

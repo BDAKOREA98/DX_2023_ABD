@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Animation\Action.h" />
     <ClInclude Include="Object\Obj\DunGreed\DunMob.h" />
     <ClInclude Include="Object\Obj\DunGreed\DunBow.h" />
     <ClInclude Include="Framework\Collider\Collider.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Framework\Math\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Animation\Action.cpp" />
     <ClCompile Include="Object\Obj\DunGreed\DunMob.cpp" />
     <ClCompile Include="Object\Obj\DunGreed\DunBow.cpp" />
     <ClCompile Include="Framework\Collider\Collider.cpp" />

@@ -37,6 +37,7 @@
 
 #define ADD_SRV(k)		SRVManager::GetInstance()->AddSRV(k)
 
+
 #define LERP(s,e,t) s + (e - s)*t
 #define PI 3.141592
 
@@ -45,3 +46,8 @@
 #define WHITE	{ 1.0f, 1.0f, 1.0f, 1.0f }
 #define GREEN	{ 0.0f, 1.0f, 0.0f, 1.0f }
 //#define BLUE	{ 1.0f, 1.0f, 1.0f, 1.0f }
+
+using CallBack = function<void()>;
+using CallBack2 = function<void(int)>;
+
+// 반환형식이 보이드고 매개변수가 없는 함수를 담는것

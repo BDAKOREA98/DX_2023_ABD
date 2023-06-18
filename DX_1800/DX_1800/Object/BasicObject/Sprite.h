@@ -1,4 +1,5 @@
 #pragma once
+class Action;
 class Sprite : public Quad
 {
 
@@ -14,6 +15,8 @@ public:
 	virtual void CreateData(wstring path) override;
 
 	void SetCurFrame(Vector2 frame) { _frameBuffer->_data.curFrame = frame; }
+	void SetCurFrame(Action::Clip clip);
+
 
 private:
 
