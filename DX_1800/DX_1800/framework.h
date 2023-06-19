@@ -52,6 +52,7 @@ using namespace Microsoft::WRL;
 // Utility
 #include "Framework/Utility/Timer.h"
 #include "Framework/Utility/InputManager.h"
+#include "Framework/Utility/tinyxml2.h"
 
 
 // Render
@@ -87,6 +88,9 @@ using namespace Microsoft::WRL;
 #include "Framework/Collider/RectCollider.h"
 #include "Framework/Collider/CircleCollider.h"
 
+// CupHead
+#include "Object/Obj/CupHead/CupHead.h"
+#include "Object/Obj/CupHead/player.h"
 
 // Obj
 #include "Object/Obj/Planet.h"

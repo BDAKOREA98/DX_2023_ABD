@@ -151,6 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Utility\tinyxml2.h" />
+    <ClInclude Include="Object\Obj\CupHead\CupHead.h" />
+    <ClInclude Include="Object\Obj\CupHead\player.h" />
+    <ClInclude Include="Scene\BasicScene\CupHeadScene.h" />
     <ClInclude Include="Framework\Animation\Action.h" />
     <ClInclude Include="Object\Obj\DunGreed\DunMob.h" />
     <ClInclude Include="Object\Obj\DunGreed\DunBow.h" />
@@ -199,6 +203,10 @@
     <ClInclude Include="Scene\BasicScene\ZeldaScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Utility\tinyxml2.cpp" />
+    <ClCompile Include="Object\Obj\CupHead\CupHead.cpp" />
+    <ClCompile Include="Object\Obj\CupHead\player.cpp" />
+    <ClCompile Include="Scene\BasicScene\CupHeadScene.cpp" />
     <ClCompile Include="Framework\Animation\Action.cpp" />
     <ClCompile Include="Object\Obj\DunGreed\DunMob.cpp" />
     <ClCompile Include="Object\Obj\DunGreed\DunBow.cpp" />

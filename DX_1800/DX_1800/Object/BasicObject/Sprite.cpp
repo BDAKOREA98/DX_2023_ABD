@@ -39,13 +39,16 @@ Sprite::~Sprite()
 
 void Sprite::Update()
 {
+
+    _reverseBuffer->Update_Resource();
     _actionBuffer->Update_Resource();
 	Quad::Update();
 }
 
 void Sprite::Render()
 {
-    _actionBuffer->SetPS_Buffer(0);
+    _reverseBuffer->SetPS_Buffer(0);
+    _actionBuffer->SetPS_Buffer(1);
 	Quad::Render();
 }
 
@@ -95,6 +98,7 @@ void Sprite::CreateData(wstring path)
 
     _ps = ADD_PS(L"Shader/ActionPS.hlsl");
 
+    _reverseBuffer = make_shared<IntBuffer>();
     
 }
 
