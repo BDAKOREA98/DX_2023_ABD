@@ -36,6 +36,7 @@ public:
 	float SeperateAxis(Vector2 separate, Vector2 e1, Vector2 e2);
 
 	bool Block(shared_ptr<RectCollider> col);
+	bool Block(shared_ptr<CircleCollider> col);
 
 	void SetScale(Vector2 scale);
 

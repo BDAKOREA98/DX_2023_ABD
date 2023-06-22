@@ -16,6 +16,8 @@ public:
 	virtual void CreateVertices();
 	virtual void CreateData(wstring path);
 
+	 Vector2 GetImageSize() { return _srv.lock()->GetImageze(); }
+	
 	shared_ptr<PixelShader> ChangePS(wstring file) { _ps = make_shared<PixelShader>(file); }
 
 	

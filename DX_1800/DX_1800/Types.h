@@ -40,6 +40,7 @@
 
 #define LERP(s,e,t) s + (e - s)*t
 #define PI 3.141592
+#define GRAVITY 9.8
 
 #define RED		{ 1.0f, 0.0f, 0.0f, 1.0f }
 #define BLUE	{ 0.0f, 0.0f, 1.0f, 1.0f }
