@@ -5,6 +5,7 @@
 CupHeadScene::CupHeadScene()
 {
 	_player = make_shared<player>();
+
 }
 
 CupHeadScene::~CupHeadScene()
@@ -14,11 +15,13 @@ CupHeadScene::~CupHeadScene()
 void CupHeadScene::Update()
 {
 	_player->Update();
+
 }
 
 void CupHeadScene::Render()
 {
 	_player->Render();
+	
 }
 
 void CupHeadScene::PostRender()

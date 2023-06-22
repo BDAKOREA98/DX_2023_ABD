@@ -30,7 +30,7 @@ public:
 	}
 
 	void Update();
-
+	void LockFPS(double value) { _lockFPS = value; }
 	int GetFPS() { return _frameRate; }
 	double GetDeltaTime() { return _deltaTime; }
 	double GetRunTime() { return _runTime; }

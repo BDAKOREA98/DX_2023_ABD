@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Obj\CupHead\CupHeadBG.h" />
+    <ClInclude Include="Object\Obj\CupHead\Moster.h" />
     <ClInclude Include="Object\Obj\CupHead\Bullet.h" />
     <ClInclude Include="Framework\Utility\tinyxml2.h" />
     <ClInclude Include="Object\Obj\CupHead\CupHead.h" />
@@ -204,6 +206,8 @@
     <ClInclude Include="Scene\BasicScene\ZeldaScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Obj\CupHead\CupHeadBG.cpp" />
+    <ClCompile Include="Object\Obj\CupHead\Moster.cpp" />
     <ClCompile Include="Object\Obj\CupHead\Bullet.cpp" />
     <ClCompile Include="Framework\Utility\tinyxml2.cpp" />
     <ClCompile Include="Object\Obj\CupHead\CupHead.cpp" />

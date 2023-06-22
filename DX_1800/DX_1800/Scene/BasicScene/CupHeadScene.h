@@ -17,5 +17,6 @@ public:
 
 private:
 	shared_ptr<class player> _player;
+	
 
 };
