@@ -19,11 +19,12 @@ player::player()
 
 	_actions[State::IDLE]->Play();
 	_actions[State::RUN]->Play();
+	_actions[State::JUMP]->Play();
 
 	_sprites[0]->SetLeft();
 	_sprites[1]->SetLeft();
 
-	_background = make_shared<CupHeadBG>();
+	
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -40,33 +41,34 @@ player::~player()
 
 void player::Update()
 {
-	_col->Update();
-	_trans->Update();
+	Jump();
+	
 	for (auto bullet : _bullets)
 	{
 		bullet->Update();
+	
 	}
 	Input();
-	Jump();
 	
 
-	_actions[_state]->Update();
+	_actions[_curState]->Update();
 
-	_sprites[_state]->SetCurClip(_actions[_state]->GetCurClip());
-	_sprites[_state]->Update();
+	_sprites[_curState]->SetCurClip(_actions[_curState]->GetCurClip());
+	_sprites[_curState]->Update();
 
 	Shoot();
-	_background->Update();
-
+	
+	_col->Update();
+	_trans->Update();
 
 }
 
 void player::Render()
 {
-	_background->Render();
+	
 
 	_trans->SetWorldBuffer(0);
-	_sprites[_state]->Render();
+	_sprites[_curState]->Render();
 	_col->Render();
 
 
@@ -78,7 +80,8 @@ void player::Render()
 
 void player::PostRender()
 {
-	ImGui::SliderInt("State", (int*)&_state, 0, 1);
+	//ImGui::SliderInt("State", (int*)&_state, 0, 4);
+	//ImGui::SliderInt("Bullet", (int*)&_bullets, 0, 1);
 }
 
 void player::CreateAction(string name, float speed, Action::Type type, CallBack callback)
@@ -129,7 +132,7 @@ void player::CreateAction(string name, float speed, Action::Type type, CallBack 
 	action->SetEndEvent(callback);
 
 	_actions.push_back(action);
-
+	
 	shared_ptr<Sprite_Clip> sprite = make_shared<Sprite_Clip>(srvPath, Vector2(averageW/count, averageH/count));
 	_sprites.push_back(sprite);
 
@@ -137,12 +140,20 @@ void player::CreateAction(string name, float speed, Action::Type type, CallBack 
 
 void player::Input()
 {
+	
+	if (_isFalling&&_isAttack)
+	{
+		return;
+	}
 
 	if (KEY_PRESS('A'))
 	{
 		_col->GetTransform()->AddVector2(LEFT_VECTOR * DELTA_TIME * _speed);
 		SetLEFT();
 		SetAction(State::RUN);
+		_isFalling = false;
+		_isAttack = false;
+		
 	}
 	else if (KEY_UP('A'))
 	{
@@ -153,12 +164,17 @@ void player::Input()
 		_col->GetTransform()->AddVector2(RIGHT_VECTOR * DELTA_TIME * _speed);
 		SetRIGHT();
 		SetAction(State::RUN);
+		_isFalling = false;
+		_isAttack = false;
+		
 	}
 	else if (KEY_UP('D'))
 	{
 		SetAction(State::IDLE);
 	}
+	
 
+	
 	
 	
 
@@ -166,19 +182,24 @@ void player::Input()
 
 void player::Shoot()
 {
-	if (KEY_DOWN(VK_LBUTTON))
+	if (KEY_DOWN(VK_LBUTTON) )
 	{
-		shared_ptr<Bullet> bullet = SetBullet();
 		
+
+		_isAttack = true;
+		SetAction(State::ATTACK);
+		_actions[State::ATTACK]->Play();
+
+		shared_ptr<Bullet> bullet = SetBullet();
 		
 		if (bullet == nullptr)
 			return;
 		
+		
 		bullet->SetActiv(true);
 		bullet->SetPosition(_col->GetWorldPos());
-		bullet->SetDirtection(MOUSE_POS - _col->GetWorldPos());
-
-
+		bullet->SetDirtection(RIGHT_VECTOR);
+		
 	}
 	
 	
@@ -188,14 +209,17 @@ void player::Shoot()
 void player::SetAction(State state)
 {
 
-	if (_state == state)
-	{
+	if (_curState == state)
 		return;
-	}
-	_actions[_state]->Reset();
-	_actions[_state]->Pause();
-	_state = state;
-	_actions[_state]->Play();
+
+	_curState = state;
+
+	_actions[_oldState]->Reset();
+	_actions[_oldState]->Pause();
+
+	_actions[_curState]->Play();
+
+	_oldState = _curState;
 }
 shared_ptr<Bullet> player::SetBullet()
 {
@@ -211,24 +235,24 @@ shared_ptr<Bullet> player::SetBullet()
 void player::Jump()
 {
 	
-	if (_isFalling == false)
-	{	
-		_jumpPower -= GRAVITY ;
-
-		if (_jumpPower < -_maxFalling)
-			_jumpPower = -_maxFalling;
-
-		_col->GetTransform()->AddVector2(Vector2(0.0f, _jumpPower * DELTA_TIME));
-		_background->GetCollider()->Block(_col);
-	
-	}
-
-	if (KEY_DOWN(VK_SPACE))
-	{
-
-		_jumpPower = 1500.0f;
+	if (_isFalling == true && _isAttack == false)
 		SetAction(State::JUMP);
-		_isFalling = true;
-	}
+	else if (_curState == JUMP && _isFalling == false && _isAttack == false)
+		SetAction(State::IDLE);
+
+	_jumpPower -= GRAVITY * 9;
+
+	if (_jumpPower < -_maxFalling)
+		_jumpPower = -_maxFalling;
+
+	_col->GetTransform()->AddVector2(Vector2(0.0f, _jumpPower * DELTA_TIME));
+
+		if (KEY_DOWN(VK_SPACE) )
+		{
+			_jumpPower = 1500.0f;
+			_isFalling = true;
+		}
+	
 	
 }
+

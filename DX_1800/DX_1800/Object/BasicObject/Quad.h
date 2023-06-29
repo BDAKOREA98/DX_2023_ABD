@@ -18,9 +18,9 @@ public:
 
 	 Vector2 GetImageSize() { return _srv.lock()->GetImageze(); }
 	
-	shared_ptr<PixelShader> ChangePS(wstring file) { _ps = make_shared<PixelShader>(file); }
-
 	
+	void SetPS(shared_ptr<PixelShader> ps) { _ps = ps; }
+	void SetVS(shared_ptr<VertexShader> vs) { _vs = vs; }
 
 protected:
 

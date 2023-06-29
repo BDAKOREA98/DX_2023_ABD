@@ -12,7 +12,7 @@
 Program::Program()
 {
     srand(static_cast<unsigned int> (time(nullptr)));
-	_curscene = make_shared<CupHeadScene>();
+	_curscene = make_shared<TutorialScene>();
 
     _view = make_shared<MatrixBuffer>();
     _proj = make_shared<MatrixBuffer>();

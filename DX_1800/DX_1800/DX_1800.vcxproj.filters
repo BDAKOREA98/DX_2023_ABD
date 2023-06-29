@@ -343,5 +343,6 @@
     <FxCompile Include="Shader\DunBow.hlsl" />
     <FxCompile Include="Shader\SpritePS.hlsl" />
     <FxCompile Include="Shader\ActionPS.hlsl" />
+    <FxCompile Include="Shader\FillterPS.hlsl" />
   </ItemGroup>
 </Project>

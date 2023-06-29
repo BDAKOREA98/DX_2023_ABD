@@ -17,9 +17,12 @@ public:
 	void SetActiv(bool active) { _isActive = active; }
 	bool GetActiv() { return _isActive; }
 
+	bool takeDamage(shared_ptr<CircleCollider> col) { _col->IsCollision(col); }
 
 	shared_ptr<CircleCollider> GetCol() { return _col; }
 	Vector2 GetDir() { return _direction; }
+
+	
 
 private:
 	bool _isActive = false;

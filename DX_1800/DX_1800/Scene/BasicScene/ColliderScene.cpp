@@ -46,7 +46,7 @@ void ColliderScene::Update()
 
 	_Circlecol->Block(_Circle);
 	_rectcol->Block(_rect);
-
+	_rectcol->Block(_Circle);
 
 	if (_rectcol->IsOBB(_Circle) && _rectcol->IsOBB(_rect))
 	{

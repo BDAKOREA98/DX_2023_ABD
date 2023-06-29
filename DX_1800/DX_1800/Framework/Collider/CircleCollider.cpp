@@ -109,7 +109,10 @@ bool CircleCollider::Block(shared_ptr<CircleCollider> col)
 }
 bool CircleCollider::Block(shared_ptr<RectCollider> col)
 {
-    return false;
+
+
+    return true;
+
 }
 float CircleCollider::GetWorldRadius()
 {

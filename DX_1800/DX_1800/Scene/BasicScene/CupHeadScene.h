@@ -16,7 +16,7 @@ public:
 
 
 private:
-	shared_ptr<class player> _player;
+	shared_ptr<class CupHead> _cup;
 	
 
 };

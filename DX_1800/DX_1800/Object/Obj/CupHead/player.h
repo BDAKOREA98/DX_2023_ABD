@@ -44,12 +44,20 @@ public:
 	void SetAction(State state);
 
 	shared_ptr<class Bullet> SetBullet();
+	shared_ptr<class CircleCollider> GetCol() {return _col;	}
 
+	bool _isFalling = false;
+	bool _isAttack = false;
+
+	State GetOldState() { return _oldState; }
+
+	vector<shared_ptr<class Bullet>> GetBullet() { return _bullets; }
 private:
 
 	float _jumpPower = 0.0f;
-	float _maxFalling = 5000.0f;
+	float _maxFalling = 500.0f;
 
+	friend class CupHead;
 
 	shared_ptr<CircleCollider> _col;
 	vector<shared_ptr<Action>> _actions;
@@ -59,15 +67,12 @@ private:
 
 	vector<shared_ptr<class Bullet>> _bullets;
 
-	shared_ptr<class CupHeadBG> _background;
 
 	State _curState = State::IDLE;
 	State _oldState = State::IDLE;
 
 	float _speed = 300;
 
-	bool _isFalling = false;
-	bool _isAttack = false;
 
 };
 

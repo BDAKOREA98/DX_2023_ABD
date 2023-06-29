@@ -15,5 +15,7 @@ private:
 	shared_ptr<RectCollider> _col;
 	shared_ptr<Transform> _transform;
 	shared_ptr<Quad>	_quad;
+	shared_ptr<Quad>	_quad2;
+	shared_ptr<Transform> _transform2;
 };
 
