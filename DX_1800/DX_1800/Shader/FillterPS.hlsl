@@ -91,6 +91,89 @@ float4 OctaBlur(float2 uv)
 
 }
 
+static const float weight[13] =
+{
+	0.0561f, 0.1353f, 0.2730f, 0.4868f, 0.7261f, 0.9231f,
+	1.0f,
+	0.9231f, 0.7261f, 0.4868f, 0.2730f, 0.1353f, 0.0561f
+};
+
+float4 GaussianBlur(float2 uv)
+{
+	float divX = 1.0f / imageSize.x;
+	float divY = 1.0f / imageSize.y;
+
+	float sum = 0;
+	float4 result = 0;
+
+	for (int i = -6; i <= 6; i++)
+	{
+		float2 temp = uv + float2(divX * i * value1, 0);
+		result += weight[6 + i] * resource.Sample(samp, temp);
+		
+		temp = uv + float2(0, divY * i * value1);
+		result += weight[6 + i] * resource.Sample(samp, temp);
+
+		sum += weight[6 + i] * 2;
+	}
+
+	result /= sum;
+
+	return result;
+
+}
+
+float4 RadialBlur(float2 uv)
+{
+	float2 offset = radialCenter;
+	float2 radiusUV = uv - offset;
+
+	float r = length(radiusUV);
+
+	radiusUV /= r;
+
+	r = saturate(2 * r / value1);
+	// saturate : 안에있는 값을 제한시켜주는 함수 1.5 = 1, -2 = 0
+
+	float2 delta = -radiusUV * r * r * value3 / value2;
+	float4 result = 0;
+
+	for (int i = 0; i < value2; i++)
+	{
+		result += resource.Sample(samp, uv);
+		uv += delta;
+
+	}
+
+	result /= value2;
+
+	return result;
+
+	// value3 : radial되는 반지름 == 값이 작을수록 Radial이 커짐
+	// value2 : 번지는 정도
+	// value1 : 
+
+}
+
+
+float4 OutLine(float2 uv)
+{
+	// ALPHA값 처리할시 주변만 처리하는것 : 알파값처리된 sun으로 확인하면 한눈에 확인 가능
+
+	float4 result;
+
+	result = resource.Sample(samp, uv);
+
+	if (result.w < 0.02f && result.w > 0.01f)
+	{
+		return float4 (1, 1, 1, 1);
+	}
+
+	return result;
+}
+
+
+
 float4 PS(PixelInput input) : SV_TARGET
 {
 
@@ -112,6 +195,20 @@ float4 PS(PixelInput input) : SV_TARGET
 	{
 		return OctaBlur(input.uv);
 	}
+	else if (selected == 4)
+	{
+		return GaussianBlur(input.uv);
+	}
+	else if (selected == 5)
+	{
+		return RadialBlur(input.uv);
+	}
+
+	else if (selected == 6)
+	{
+		return OutLine(input.uv);
+	}
+
 
 	return resource.Sample(samp, input.uv);
 }

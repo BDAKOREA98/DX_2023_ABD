@@ -333,6 +333,9 @@
     <Image Include="DX_1800.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Texture\Winter.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\Tutorial_Shader.hlsl" />

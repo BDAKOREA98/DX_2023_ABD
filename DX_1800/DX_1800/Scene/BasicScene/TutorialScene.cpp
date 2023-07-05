@@ -3,7 +3,7 @@
 
 TutorialScene::TutorialScene()
 {
-    _qurd = make_shared<Quad>(L"Resource/Texture/chaewon.png");
+    _qurd = make_shared<Quad>(L"Resource/Texture/sun.png");
      _qurd->SetPS(ADD_PS(L"Shader/FillterPS.hlsl"));
    
     _trans = make_shared<Transform>();
@@ -14,6 +14,8 @@ TutorialScene::TutorialScene()
     _trans->SetScale(Vector2(0.7f,0.7f));
    _filterBuffer = make_shared<FilterBuffer>();
    _filterBuffer->_data.imageSize = _qurd->GetImageSize();
+   _filterBuffer->_data.radiaCenter = {0.5f, 0.5f};
+
 
 
 }
@@ -89,7 +91,7 @@ void TutorialScene::Render()
 
 void TutorialScene::PostRender()
 {
-    ImGui::SliderInt("selected", &_filterBuffer->_data.seleted, 0, 5);
+    ImGui::SliderInt("selected", &_filterBuffer->_data.seleted, 0, 6);
     ImGui::SliderInt("value1", &_filterBuffer->_data.value1, 0, 300);
     ImGui::SliderInt("value2", &_filterBuffer->_data.value2, 0, 300);
     ImGui::SliderInt("value3", &_filterBuffer->_data.value3, 0, 300);

@@ -58,7 +58,7 @@ void Program::Render()
     ImGui::NewFrame();
 
 
-    ADDITIVE->SetState();
+    ALPHA->SetState();
 	_curscene->Render();
 
 
