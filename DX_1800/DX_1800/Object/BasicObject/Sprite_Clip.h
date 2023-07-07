@@ -12,8 +12,8 @@ public:
 	
 
 	
-	 void SetCurClip(Action::Clip clip);
-
+	 virtual void SetCurClip(Action::Clip clip) override;
+	 virtual void SetCurClip(Vector2 frame) override;
 
 private:
 

@@ -160,16 +160,34 @@ float4 OutLine(float2 uv)
 {
 	// ALPHA값 처리할시 주변만 처리하는것 : 알파값처리된 sun으로 확인하면 한눈에 확인 가능
 
-	float4 result;
+	float4 result = 0;
 
-	result = resource.Sample(samp, uv);
 
-	if (result.w < 0.02f && result.w > 0.01f)
+	//result = resource.Sample(samp, uv);
+
+	float divX = 1.0f / imageSize.x;
+	float divY = 1.0f / imageSize.y;
+
+	result += resource.Sample(samp, uv + float2(divX, 0.0f));
+	result += resource.Sample(samp, uv + float2(-divX, 0.0f));
+	result += resource.Sample(samp, uv + float2(0.0f, divY));
+	result += resource.Sample(samp, uv + float2(0.0f, -divY));
+
+
+	if (result.w < 4.0f && result.w > 3.0f)
 	{
-		return float4 (1, 1, 1, 1);
+		return float4(1, 1, 1, 1);
 	}
+	
+	
+	//if (result.w < 0.02f && result.w > 0.01f)
+	//{
+	//	return float4 (1, 1, 1, 1);
+	//}
+	//return result;
 
-	return result;
+	return resource.Sample(samp, uv);
+
 }
 
 

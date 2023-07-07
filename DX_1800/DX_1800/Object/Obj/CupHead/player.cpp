@@ -33,6 +33,11 @@ player::player()
 	}
 	
 
+	_filter = make_shared<FilterBuffer>();
+	_filter->_data.imageSize = _sprites[State::IDLE]->GetImageSize();
+	_filter->_data.seleted = 1;
+
+
 }
 
 player::~player()
@@ -61,6 +66,8 @@ void player::Update()
 	_col->Update();
 	_trans->Update();
 
+	_filter->Update_Resource();
+	_filter->_data.value2 += 1;
 }
 
 void player::Render()
@@ -68,6 +75,7 @@ void player::Render()
 	
 
 	_trans->SetWorldBuffer(0);
+	_filter->SetPS_Buffer(2);
 	_sprites[_curState]->Render();
 	_col->Render();
 
@@ -134,7 +142,10 @@ void player::CreateAction(string name, float speed, Action::Type type, CallBack 
 	_actions.push_back(action);
 	
 	shared_ptr<Sprite_Clip> sprite = make_shared<Sprite_Clip>(srvPath, Vector2(averageW/count, averageH/count));
+	sprite->SetPS(ADD_PS(L"Shader/CupPS.hlsl"));
 	_sprites.push_back(sprite);
+
+
 
 }
 

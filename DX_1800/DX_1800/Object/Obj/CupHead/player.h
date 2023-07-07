@@ -71,6 +71,8 @@ private:
 	State _curState = State::IDLE;
 	State _oldState = State::IDLE;
 
+	shared_ptr<FilterBuffer> _filter;
+
 	float _speed = 300;
 
 

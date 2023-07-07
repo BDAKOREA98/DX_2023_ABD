@@ -1,4 +1,5 @@
 #pragma once
+#include "framework.h"
 
 #define WIN_WIDTH 1280
 #define WIN_HEIGHT 720
@@ -55,3 +56,4 @@ using CallBack2 = function<void(int)>;
 #define ADD_VS(k)			ShaderManager::GetInstance()->Add_VS(k)
 #define ADD_PS(k)			ShaderManager::GetInstance()->Add_PS(k)
 // 반환형식이 보이드고 매개변수가 없는 함수를 담는것
+

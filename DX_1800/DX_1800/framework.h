@@ -21,6 +21,9 @@
 #include <wrl/client.h> // 스마트포인터 사용을 위함
 #include <functional> // 객체없이 함수포인터 사용을 위함
 #include <time.h>
+#include <locale>
+#include <iostream>
+#include <cstdlib>
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -82,6 +85,7 @@ using namespace Microsoft::WRL;
 #include "Object/BasicObject/Sprite.h"
 #include "Object/BasicObject/Sprite_Clip.h"
 #include "Object/BasicObject/Sprite_Frame.h"
+#include "Object/BasicObject/Effect.h"
 
 // Collider
 #include "Framework/Collider/Collider.h"
