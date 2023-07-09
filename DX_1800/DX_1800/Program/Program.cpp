@@ -41,6 +41,7 @@ void Program::Update()
     InputManager::GetInstance()->Update();
 
     _curscene->Update();
+    EFFECT->Update();
 
 }
 
@@ -60,7 +61,7 @@ void Program::Render()
 
     ALPHA->SetState();
 	_curscene->Render();
-
+    EFFECT->Render();
 
 
     ImGui::Text("FPS : %d", FPS);

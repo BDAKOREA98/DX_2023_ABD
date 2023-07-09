@@ -49,6 +49,9 @@
 #define GREEN	{ 0.0f, 1.0f, 0.0f, 1.0f }
 //#define BLUE	{ 1.0f, 1.0f, 1.0f, 1.0f }
 
+
+#define EFFECT  EffectManager::GetInstance()
+
 using CallBack = function<void()>;
 using CallBack2 = function<void(int)>;
 

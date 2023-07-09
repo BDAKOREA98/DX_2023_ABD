@@ -23,7 +23,8 @@ private:
 	shared_ptr<FilterBuffer> _filterBuffer;
 
 
-	shared_ptr<Effect> _effect;
+//	shared_ptr<Effect> _effect;
+	
 	
 };
 

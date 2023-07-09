@@ -17,7 +17,9 @@ TutorialScene::TutorialScene()
    _filterBuffer->_data.radiaCenter = {0.5f, 0.5f};
 
 
-   _effect = make_shared<Effect>("Hit", L"Resource/Texture/hit_4x2.png", Vector2(4, 2), Vector2(100, 100));
+  // _effect = make_shared<Effect>("Hit", L"Resource/Texture/hit_4x2.png", Vector2(4, 2), Vector2(100, 100));
+  
+   EFFECT->AddEffect("Hit", L"Resource/Texture/hit_4x2.png", Vector2(4, 2), Vector2(100, 100));
    
 
 
@@ -81,12 +83,14 @@ void TutorialScene::Update()
 
     if (KEY_DOWN(VK_LBUTTON))
     {
-        _effect->Play(MOUSE_POS);
+       // _effect->Play(MOUSE_POS);
        
+        EFFECT->Play("Hit", MOUSE_POS);
 
     }
 
-        _effect->Update();
+       // _effect->Update();
+      
 }
 
 void TutorialScene::Render()
@@ -98,7 +102,8 @@ void TutorialScene::Render()
     _filterBuffer->SetPS_Buffer(0);
     _qurd->Render();
 
-    _effect->Render();
+   // _effect->Render();
+   
    
 }
 

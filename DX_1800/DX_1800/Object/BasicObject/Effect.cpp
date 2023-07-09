@@ -10,6 +10,14 @@ Effect::Effect(string name, wstring file, Vector2 maxFrame, Vector2 size, float 
 
 }
 
+Effect::Effect(string name, wstring file, string xmlPath, Vector2 size, float speed, Action::Type type)
+	: _name(name)
+{
+	_trans = make_shared<Transform>();
+	CreateAction_ByXML(name, file, xmlPath, size, speed, type);
+	End();
+}
+
 
 Effect::~Effect()
 {
@@ -24,6 +32,13 @@ void Effect::Update()
 	_action->Update();
 	_sprite->SetCurClip(_action->GetCurClip());
 	_sprite->Update();
+
+	/*if (!_sprites.empty())
+	{
+		_sprites[0]->Update();
+		_actions[0]->Update();
+	}*/
+
 }
 
 void Effect::Render()
@@ -44,6 +59,13 @@ void Effect::Play(Vector2 pos)
 
 	_action->Play();
 
+
+	//if (!_actions.empty())
+	//{
+	//	_actions[0]->Play();
+	//}
+
+
 }
 
 void Effect::End()
@@ -57,6 +79,7 @@ void Effect::End()
 void Effect::CreateAction_ByFrame(string name, wstring file, Vector2 maxFrame, Vector2 size, float speed, Action::Type type)
 {
 	// Action을 만드는 단계 (Frame별로 나뉘어져있기에)
+
 	_sprite = make_shared<Sprite_Frame>(file, maxFrame, size);
 	shared_ptr<SRV> srv = ADD_SRV(file);
 
@@ -80,5 +103,10 @@ void Effect::CreateAction_ByFrame(string name, wstring file, Vector2 maxFrame, V
 	_action = make_shared<Action>(clips, name, type, speed);
 	_action->SetEndEvent(std::bind(&Effect::End, this));
 
+
+}
+
+void Effect::CreateAction_ByXML(string name, wstring file, string xmlPath, Vector2 size, float speed, Action::Type type)
+{
 
 }
