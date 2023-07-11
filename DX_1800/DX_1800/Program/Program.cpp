@@ -42,6 +42,7 @@ void Program::Update()
 
     _curscene->Update();
     EFFECT->Update();
+    SOUND->Update();
 
 }
 
@@ -62,6 +63,7 @@ void Program::Render()
     ALPHA->SetState();
 	_curscene->Render();
     EFFECT->Render();
+    
 
 
     ImGui::Text("FPS : %d", FPS);

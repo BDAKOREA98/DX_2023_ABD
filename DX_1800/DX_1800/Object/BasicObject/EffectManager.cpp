@@ -28,6 +28,23 @@ void EffectManager::AddEffect(string name, wstring file, Vector2 maxFrame, Vecto
 
 }
 
+void EffectManager::AddEffect_(string name, wstring file, wstring xmlPath, Vector2 size, float speed, Action::Type type)
+{
+	if (_effectTable.count(name) != 0)
+	{
+		return;
+	}
+
+	for (int i = 0; i < _poolcount; i++)
+	{
+		shared_ptr<Effect> effect = make_shared<Effect>(name, file, xmlPath, size, speed, type);
+		_effectTable[name].push_back(effect);
+	}
+}
+
+
+
+
 void EffectManager::Update()
 {
 

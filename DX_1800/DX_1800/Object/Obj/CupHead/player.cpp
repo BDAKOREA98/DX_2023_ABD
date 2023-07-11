@@ -108,7 +108,7 @@ void player::CreateAction(string name, float speed, Action::Type type, CallBack 
 	tinyxml2::XMLElement* textureAtlas = document->FirstChildElement();
 	tinyxml2::XMLElement* row = textureAtlas->FirstChildElement();
 
-	vector<Action::Clip> clips;
+	vector<Action::Clip> clips;	
 
 	float averageW = 0;
 	float averageH = 0;
@@ -127,7 +127,7 @@ void player::CreateAction(string name, float speed, Action::Type type, CallBack 
 		
 		averageW += w;
 		averageH += h;
-		count++;
+		//count++;
 
 
 		Action::Clip clip = Action::Clip(x, y, w, h, srv);
@@ -141,7 +141,7 @@ void player::CreateAction(string name, float speed, Action::Type type, CallBack 
 
 	_actions.push_back(action);
 	
-	shared_ptr<Sprite_Clip> sprite = make_shared<Sprite_Clip>(srvPath, Vector2(averageW/count, averageH/count));
+	shared_ptr<Sprite_Clip> sprite = make_shared<Sprite_Clip>(srvPath, Vector2(averageW, averageH));
 	sprite->SetPS(ADD_PS(L"Shader/CupPS.hlsl"));
 	_sprites.push_back(sprite);
 

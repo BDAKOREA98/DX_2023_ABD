@@ -39,6 +39,8 @@ public:
 	void AddEffect(string name, wstring file, Vector2 maxFrame, Vector2 size, float speed = 0.03f
 		, Action::Type type = Action::Type::END);
 
+	void AddEffect_(string name, wstring file, wstring xmlPath, Vector2 size, float speed = 0.1f, Action::Type type = Action::Type::END);
+
 	void Update();
 	void Render();
 

@@ -19,9 +19,14 @@ TutorialScene::TutorialScene()
 
   // _effect = make_shared<Effect>("Hit", L"Resource/Texture/hit_4x2.png", Vector2(4, 2), Vector2(100, 100));
   
-   EFFECT->AddEffect("Hit", L"Resource/Texture/hit_4x2.png", Vector2(4, 2), Vector2(100, 100));
-   
+   //EFFECT->AddEffect("Hit", L"Resource/Texture/hit_4x2.png", Vector2(4, 2), Vector2(100, 100));
+   EFFECT->AddEffect_("Hit", L"Resource/CupHead/Effect/Hyper_Shot_End.png", L"Resource/CupHead/Effect/Hyper_Shot_End.xml",
+       Vector2(500,500));
+   SOUND->Add("bgm1", "Resource/Sound/BGM.mp3", true);
+   SOUND->Add("attack", "Resource/Sound/attack.wav", true);
 
+
+   SOUND->Pause("bgm1");
 
 }
 
@@ -85,7 +90,8 @@ void TutorialScene::Update()
     {
        // _effect->Play(MOUSE_POS);
        
-        EFFECT->Play("Hit", MOUSE_POS);
+        EFFECT->Play("Hit", CENTER);
+        //SOUND->Play("attack");
 
     }
 
